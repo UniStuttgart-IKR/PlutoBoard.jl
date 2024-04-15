@@ -1,0 +1,9 @@
+name = "PlutoBoard"
+uuid = "447e6095-edb7-4c27-ab1f-4a324c08f539"
+authors = ["Niels <hermsen.niels@gmail.com>"]
+version = "0.1.0"
+
+[deps]
+HypertextLiteral = "ac1192a8-f4b3-4bfe-ba22-af5b92cd3ab2"
+JSON = "682c06a0-de6a-54ab-a142-c8b1cf79cde6"
+TOML = "fa267f1f-6049-4f14-aa54-33bafae1ed76"

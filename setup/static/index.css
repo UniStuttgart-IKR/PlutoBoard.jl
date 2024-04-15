@@ -1,0 +1,11 @@
+.h1-testing {
+    color: red;
+}
+
+body {
+    overflow: hidden;
+}
+
+#main {
+    background: rgb(36, 1, 36);
+}

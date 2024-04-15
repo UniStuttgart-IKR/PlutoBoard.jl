@@ -1,0 +1,9 @@
+<div id="main">
+    <div class="h1-testing">Hello World!</div>
+
+    <input type="number" id="input-number" value="0">
+    <button id="call-julia-square"
+        onclick='(async () => {changeButtonText("call-julia-square", await callJuliaFunctionWithReturn("get_square", [Number(document.getElementById("input-number").value)]))})();'>
+        call Julia with input and get square of it
+    </button>
+</div>
