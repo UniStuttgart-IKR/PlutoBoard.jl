@@ -1,5 +1,5 @@
 ### A Pluto.jl notebook ###
-# v0.19.40
+# v0.19.41
 
 using Markdown
 using InteractiveUtils
@@ -31,7 +31,7 @@ begin
 	project_toml_path = joinpath(@__DIR__, "Project.toml")
 	project_toml = PlutoBoard.TOML.parsefile(project_toml_path)
 	project_name = project_toml["name"]
-	eval(Meta.parse("using $project_name; const PlutoBoardDeveloper = $project_name"))
+	eval(Meta.parse("using $project_name; PlutoBoardDeveloper = $project_name"))
 end
 
 # ╔═╡ ccaca478-9064-47a4-8967-ae0d41ccec7b
@@ -43,11 +43,11 @@ PlutoBoard.load_bootstrap_css()
 # ╔═╡ 3117a56f-2a81-4da7-b832-cc8ade73b136
 PlutoBoard.load_bootstrap_js()
 
-# ╔═╡ aa5b4411-c643-4f81-bb08-54b94d5c5fbb
-PlutoBoard.load_html()
-
 # ╔═╡ 7d9362b1-c508-4cad-add2-4f62a6ad8409
 PlutoBoard.load_js()
+
+# ╔═╡ aa5b4411-c643-4f81-bb08-54b94d5c5fbb
+PlutoBoard.load_html()
 
 # ╔═╡ 4a5c458d-c7e5-40ca-97af-f2ffaebc214b
 PlutoBoard.set_fullscreen()
@@ -67,7 +67,7 @@ end
 PlutoBoard.handle_command(intent_command)
 
 # ╔═╡ 4d55b3cc-ad5d-412a-a312-aed9374ee85c
-PlutoBoard.@htl("""<h1 id="callJuliaFunctionReturn"/>""")
+PlutoBoard.@htl("""<h1 id="callJuliaFunctionReturn"></h1>""")
 
 # ╔═╡ Cell order:
 # ╠═caff9170-f1e7-11ee-3e0a-7bed8d1d0dd4
@@ -78,8 +78,8 @@ PlutoBoard.@htl("""<h1 id="callJuliaFunctionReturn"/>""")
 # ╠═ccaca478-9064-47a4-8967-ae0d41ccec7b
 # ╠═c8f44fcc-b2b4-49e6-8c5c-93ee51e42d1a
 # ╠═3117a56f-2a81-4da7-b832-cc8ade73b136
-# ╠═aa5b4411-c643-4f81-bb08-54b94d5c5fbb
 # ╠═7d9362b1-c508-4cad-add2-4f62a6ad8409
+# ╠═aa5b4411-c643-4f81-bb08-54b94d5c5fbb
 # ╠═4a5c458d-c7e5-40ca-97af-f2ffaebc214b
 # ╠═bd4f5ceb-b5c1-426b-bc29-2a71dc06a5aa
 # ╠═23857a51-0465-4b80-817a-19c994ae7b2d

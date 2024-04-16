@@ -34,7 +34,7 @@ end
 function load_js()::HypertextLiteral.Result
 
 	paths = []
-	for path in ["static/javascript/", """$(plutoboard_filepath)/$(config["paths"]["javascript_dir"])/"""]
+	for path in ["""$(plutoboard_filepath)/$(config["paths"]["javascript_dir"])/""", "static/javascript/"]
 		for file in readdir(path)
 			if file == "Init.js"
 				continue

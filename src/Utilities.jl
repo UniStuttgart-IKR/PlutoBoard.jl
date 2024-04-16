@@ -9,6 +9,7 @@ end
 
 function setup()
 	cwd = pwd()
+	println(plutoboard_filepath)
 	#copy contents of setup folder into cwd
 	for file in readdir("$(plutoboard_filepath)/setup")
 		if file == "src"
@@ -22,9 +23,7 @@ function setup()
 	end
 
 	#open Project.toml and get project name
-	project_toml_path = joinpath(cwd, "Project.toml")
-	project_toml = TOML.parsefile(project_toml_path)
-	project_name = project_toml["name"]
+	project_name = get_package_name()
 
 	project_file_path = joinpath(cwd, "src/$(project_name).jl")
 	open(project_file_path, "w") do f
@@ -41,5 +40,10 @@ function setup()
 			end""",
 		)
 	end
+end
 
+function get_package_name()
+	project_toml_path = joinpath(pwd(), "Project.toml")
+	project_toml = TOML.parsefile(project_toml_path)
+	return project_toml["name"]
 end

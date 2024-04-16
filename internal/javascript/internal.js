@@ -19,7 +19,7 @@ function resizePlutoCell() {
     document.querySelector('pluto-helpbox').style.display = "none";
     document.querySelector('preamble').style.display = "none";
     document.querySelector('footer').style.display = "none";
-    
+
     //append pluto-cell-spacing to style of document.querySelector('pluto-notebook')
     document.querySelector('pluto-notebook').style.setProperty('--pluto-cell-spacing', '0');
 
@@ -36,6 +36,9 @@ function resizePlutoCell() {
                 if (child.className != "rich_output ") {
                     child.style.display = "none";
                 }
+                else {
+                    child.style.padding = "0";
+                }
             }
         }
 
@@ -50,4 +53,14 @@ function resizePlutoCell() {
 
 
     console.log(cellOutput);
+}
+
+async function updateAllCells() {
+    const cells = document.querySelectorAll("pluto-cell");
+    await cells[0]._internal_pluto_actions.set_and_run_multiple(Array.from(cells).map(cell => cell.id));
+
+    //wait until .settings is display: none
+    // while (document.querySelector(".settings-container").style.display !== "none") {
+    //     await new Promise(resolve => setTimeout(resolve, 100));
+    // }
 }
