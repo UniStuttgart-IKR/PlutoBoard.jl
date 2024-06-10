@@ -51,8 +51,8 @@ async function callJuliaFunctionWithReturn(func, args = []) {
         functionRunning = false;
         return null;
     }
-    const answer = JSON.parse(h1After);
+    let stringified = JSON.stringify(h1After);
+    const answer = JSON.parse(stringified);
     functionRunning = false;
     return answer;
-
 }

@@ -13,10 +13,12 @@ const plutoboard_filepath = dirname(dirname(pathof(PlutoBoard)))
 const config = TOML.parsefile(plutoboard_filepath * "/config/config.toml")
 
 
-html_path = nothing
-css_path = nothing
-fullscreen = false
-bootstrap = false
+html_path::Union{String, Nothing} = nothing
+css_path::Union{String, Nothing} = nothing
+fullscreen::Bool = false
+bootstrap::Bool = false
+
+hide_notebook::Bool = true
 
 functions = Dict{String, Function}()
 

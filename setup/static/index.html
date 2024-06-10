@@ -1,42 +1,32 @@
-<div class="containter-fluid" id="main">
-    <div class="h1-testing text-center">You successfully set up PlutoBoard.jl!</div>
+<div id="main-export">
+    <button class="btn btn-light" id="call-julia"
+        onclick='(async () => {changeButtonText("call-julia", await callJuliaFunctionWithReturn("hello_world_return", []))})();'>
+        call Julia
+    </button>
 
-    <div class="row d-flex text-center">
-        <div class="col-6">
-            <button class="btn btn-secondary" onclick="updateAllCells()">Rerun all cells!</button>
-        </div>
-        <div class="col-6">
-            <input class="btn btn-secondary" type="number" id="input-number" value="0">
-            <button class="btn btn-secondary" id="call-julia-square"
-                onclick='(async () => {changeInnerHTML("call-julia-square", await callJuliaFunctionWithReturn("get_square", [Number(document.getElementById("input-number").value)]))})();'>
-                call Julia with input and get square of it
-            </button>
+    <button class="btn btn-light" onclick='updateAllCells()'>
+        Update Notebook
+    </button>
+
+    <div class="container cell-testing-cont">
+        <div class="row">
+            <div class="col cell-row">
+                <div id="cell-div-1" cellid="13eafc45-2e29-4b2b-999b-4d89721124ef">
+
+                </div>
+            </div>
+
+            <div class="col cell-row">
+                <div id="cell-div-2" cellid="ffa65a89-13b7-41b1-b1d5-95605c5ae39d">
+
+                </div>
+            </div>
+
+            <div class="col cell-row">
+                <div id="cell-div-3" cellid="13eafc45-2e29-4b2b-999b-4d8972112123">
+
+                </div>
+            </div>
         </div>
     </div>
-
-    <div class="row d-flex justify-content-center table-div">
-        <table class="table table-dark table-borderless align-middle">
-            <thead>
-                <tr>
-                    <th>Property</th>
-                    <th>Value</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Module Name</td>
-                    <td id="package-name">1</td>
-                </tr>
-                <tr>
-                    <td>Julia Version</td>
-                    <td id="julia-version">2</td>
-                </tr>
-                <tr>
-                    <td>Current time</td>
-                    <td id="current-time">3</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-
 </div>

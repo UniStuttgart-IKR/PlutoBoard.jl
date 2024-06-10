@@ -1,35 +1,24 @@
 .h1-testing {
-    color: rgb(98, 219, 209);
-    font-size: 60px;
-    padding: 10vh 0 10vh 0;
-}
-
-body {
-    /* overflow: hidden; */
-}
-
-#main {
-    background: rgb(36, 1, 36);
+    color: red;
 }
 
 
-.table-div {
-    margin: 5vh 5vw 0 5vw;
-    padding: 1vh 1vw 1vh 1vw;
 
-    background: rgba(217, 147, 232, 0.1);
-    border-radius: 16px;
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+.cell-testing-cont {
+    background: rgb(69, 71, 65);
+    margin-top: 10vh;
+    border-radius: 20px;
+    padding: 2vh;
+    width: 60vw !important;
 }
 
-.table {
-    background-color: transparent;
-    color: white;
-    border-color: transparent;
-    --bs-table-bg: transparent;
+.cell-row {
+    width: 26vw !important;
+    max-width: 26vw !important;
 }
 
-tr {
-    border-bottom: rgba(145, 132, 168, 0.46);
-    border-style: solid;
+
+#main-export {
+    height: 100vh;
+    background: rgb(46, 48, 42);
 }

@@ -1,5 +1,5 @@
 ### A Pluto.jl notebook ###
-# v0.19.41
+# v0.19.42
 
 using Markdown
 using InteractiveUtils
@@ -31,11 +31,9 @@ begin
 	project_toml_path = joinpath(@__DIR__, "Project.toml")
 	project_toml = PlutoBoard.TOML.parsefile(project_toml_path)
 	project_name = project_toml["name"]
-	eval(Meta.parse("using $project_name; PlutoBoardDeveloper = $project_name"))
+	eval(Meta.parse("using $project_name"))
+	eval(Meta.parse("$project_name.main()"))
 end
-
-# ╔═╡ ccaca478-9064-47a4-8967-ae0d41ccec7b
-eval(Meta.parse("$project_name.main()"))
 
 # ╔═╡ c8f44fcc-b2b4-49e6-8c5c-93ee51e42d1a
 PlutoBoard.load_bootstrap_css()
@@ -43,14 +41,14 @@ PlutoBoard.load_bootstrap_css()
 # ╔═╡ 3117a56f-2a81-4da7-b832-cc8ade73b136
 PlutoBoard.load_bootstrap_js()
 
+# ╔═╡ aa5b4411-c643-4f81-bb08-54b94d5c5fbb
+#PlutoBoard.load_html()
+
 # ╔═╡ 7d9362b1-c508-4cad-add2-4f62a6ad8409
 PlutoBoard.load_js()
 
-# ╔═╡ aa5b4411-c643-4f81-bb08-54b94d5c5fbb
-PlutoBoard.load_html()
-
-# ╔═╡ 4a5c458d-c7e5-40ca-97af-f2ffaebc214b
-PlutoBoard.set_fullscreen()
+# ╔═╡ 191eb887-6681-4f75-8192-240ca3fc5da2
+PlutoBoard.load_html_string_to_body()
 
 # ╔═╡ bd4f5ceb-b5c1-426b-bc29-2a71dc06a5aa
 begin
@@ -67,7 +65,16 @@ end
 PlutoBoard.handle_command(intent_command)
 
 # ╔═╡ 4d55b3cc-ad5d-412a-a312-aed9374ee85c
-PlutoBoard.@htl("""<h1 id="callJuliaFunctionReturn"></h1>""")
+PlutoBoard.@htl("""<h1 id="callJuliaFunctionReturn"/>""")
+
+# ╔═╡ ffa65a89-13b7-41b1-b1d5-95605c5ae39d
+println("Hello World")
+
+# ╔═╡ 13eafc45-2e29-4b2b-999b-4d89721124ef
+"hey"
+
+# ╔═╡ 13eafc45-2e29-4b2b-999b-4d8972112123
+failure
 
 # ╔═╡ Cell order:
 # ╠═caff9170-f1e7-11ee-3e0a-7bed8d1d0dd4
@@ -75,12 +82,14 @@ PlutoBoard.@htl("""<h1 id="callJuliaFunctionReturn"></h1>""")
 # ╠═0e8625f9-e2cb-4660-b355-cc62d35b252d
 # ╠═e558f3b5-a1aa-4ed8-bb9c-817a8f4e9820
 # ╠═64f17c2b-5f54-4df5-8d7d-d57f3b314b5b
-# ╠═ccaca478-9064-47a4-8967-ae0d41ccec7b
 # ╠═c8f44fcc-b2b4-49e6-8c5c-93ee51e42d1a
 # ╠═3117a56f-2a81-4da7-b832-cc8ade73b136
-# ╠═7d9362b1-c508-4cad-add2-4f62a6ad8409
 # ╠═aa5b4411-c643-4f81-bb08-54b94d5c5fbb
-# ╠═4a5c458d-c7e5-40ca-97af-f2ffaebc214b
+# ╠═7d9362b1-c508-4cad-add2-4f62a6ad8409
+# ╠═191eb887-6681-4f75-8192-240ca3fc5da2
 # ╠═bd4f5ceb-b5c1-426b-bc29-2a71dc06a5aa
 # ╠═23857a51-0465-4b80-817a-19c994ae7b2d
 # ╠═4d55b3cc-ad5d-412a-a312-aed9374ee85c
+# ╠═ffa65a89-13b7-41b1-b1d5-95605c5ae39d
+# ╠═13eafc45-2e29-4b2b-999b-4d89721124ef
+# ╠═13eafc45-2e29-4b2b-999b-4d8972112123

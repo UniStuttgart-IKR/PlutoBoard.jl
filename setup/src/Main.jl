@@ -1,7 +1,7 @@
 function main()
 	## write your code here
-	PlutoBoard.initialize("static/index.html", "static/index.css", fullscreen=true, bootstrap=true)
+	PlutoBoard.initialize("static/index.html", "static/index.css"; fullscreen = false, bootstrap = true, hide_notebook = true)
 
 
-	PlutoBoard.add_functions([get_square, get_package_name, get_julia_version])
+	PlutoBoard.add_functions([hello_world_return, ping_pong, get_square])
 end

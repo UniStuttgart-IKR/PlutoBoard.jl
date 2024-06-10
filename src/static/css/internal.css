@@ -1,0 +1,36 @@
+#export {
+    display: none;
+}
+
+pluto-editor {
+    display: none;
+}
+
+body {
+    overflow: hidden;
+}
+
+pluto-input {
+    display: none;
+}
+
+.add_cell {
+    display: none;
+}
+
+pluto-shoulder {
+    display: none;
+}
+
+pluto-trafficlight {
+    display: none;
+}
+
+pluto-runarea {
+    display: none;
+}
+
+
+.btn-run {
+    width: 100%;
+}

@@ -18,7 +18,7 @@ function load_bootstrap_js()
 	end
 end
 
-function load_html()::HTML
+function load_html()
 	html_string = css_string = ""
 	open(html_path) do file
 		html_string = read(file, String)
@@ -27,7 +27,39 @@ function load_html()::HTML
 		css_string = """<style>$(read(file, String))</style>"""
 	end
 
-	return HTML(html_string * css_string)
+	html = HTML(html_string * css_string)
+	return html
+end
+
+function load_html_string_to_body()
+	#get filepath where this module is loaded
+	plutoboard_filepath = dirname(@__FILE__)
+	internal_css_path = joinpath(plutoboard_filepath, "static/css/internal.css")
+
+
+	html_string = css_string = ""
+	open(html_path) do file
+		html_string = read(file, String)
+	end
+	open(css_path) do file
+		open(internal_css_path) do css_file
+			internal_css = read(css_file, String)
+
+			if hide_notebook == true
+				css_string = """<style>$(read(file, String)) $(internal_css)</style>"""
+			else
+				css_string = """<style>$(read(file, String))</style>"""
+			end
+		end
+	end
+
+
+
+	return @htl("""
+	<script>
+	insertHTMLToBody($(html_string), $(css_string));
+	</script>
+	""")
 end
 
 
