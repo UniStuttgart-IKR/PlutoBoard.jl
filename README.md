@@ -19,7 +19,7 @@ $ cd ExampleProject
 (ExampleProject) pkg> add Pluto
 ```
 ```bash
-julia> using PlutoBoard
+julia> using PlutoBoard, Pluto
 ```
 ```bash
 julia> PlutoBoard.setup()
