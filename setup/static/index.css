@@ -2,23 +2,74 @@
     color: red;
 }
 
-
-
 .cell-testing-cont {
     background: rgb(69, 71, 65);
     margin-top: 10vh;
     border-radius: 20px;
     padding: 2vh;
-    width: 60vw !important;
+    width: 70vw !important;
+    height: 60vh;
+}
+
+.cell-col {
+    width: 26vw !important;
+    max-width: 26vw !important;
 }
 
 .cell-row {
-    width: 26vw !important;
-    max-width: 26vw !important;
+    height: 100%;
 }
 
 
 #main-export {
     height: 100vh;
     background: rgb(46, 48, 42);
+}
+
+#messages {
+    color: white;
+}
+
+.sidebar {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+
+    background: rgba(251, 168, 255, 0.12);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+}
+
+
+
+
+.sidebar .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+    background-color: transparent;
+    color: rgb(255, 255, 255);
+    border: none;
+}
+
+.openbtn {
+    font-size: 20px;
+    cursor: pointer;
+    background-color: transparent;
+    color: rgb(255, 255, 255);
+    padding: 10px 15px;
+    border: none;
+}
+
+.openbtn:hover {
+    background-color: #444;
 }

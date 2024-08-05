@@ -1,3 +1,12 @@
+/* PlutoBoard.jl internal stylesheet */
+
+
+iframe {
+    overflow-y: visible;
+    height: 100%;
+    width: 100%;
+}
+
 #export {
     display: none;
 }

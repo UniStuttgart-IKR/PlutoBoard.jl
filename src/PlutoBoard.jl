@@ -3,6 +3,8 @@ module PlutoBoard
 using HypertextLiteral
 using JSON
 using TOML
+using HTTP
+using HTTP.WebSockets
 
 include("InterfaceFunctions.jl")
 include("LoadHTML.jl")
@@ -19,8 +21,6 @@ fullscreen::Bool = false
 bootstrap::Bool = false
 
 hide_notebook::Bool = true
-
-functions = Dict{String, Function}()
 
 
 

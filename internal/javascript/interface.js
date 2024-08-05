@@ -1,58 +1,70 @@
-delete functionRunning;
-delete waitForReturn;
+// DO NOT LOAD IN IFRAME!
 
-
-functionRunning = true;
-waitForReturn = setInterval(function () {
-    if (document.getElementById('callJuliaFunctionReturn')) {
-        clearInterval(waitForReturn);
-        functionRunning = false;
-    }
-}, 100)
-
-
-
-function callJuliaFunction(func, args = [], returnValue = false) {
-    const textField = document.getElementById('callJuliaFunctionTextField');
-
-    //map args to dict wih key: type and value: value
-    let argsArray = args;
-
-    passedArgs = {
-        "func": func,
-        "args": argsArray,
-        "returnValue": returnValue
+function setupWebsocket() {
+    let socket;
+    while (socket === undefined) {
+        console.log('Waiting for WebSocket to be defined...');
+        new Promise(resolve => setTimeout(resolve, 100));
+        socket = new WebSocket('ws://localhost:8080');
     }
 
-    textField.value = JSON.stringify(passedArgs);
-    textField.dispatchEvent(new CustomEvent("input"));
+    socket.addEventListener('open', function (event) {
+        console.log('WebSocket is open now.');
+    });
 
-    console.log("Calling Julia function: " + func + " with args: " + argsArray);
+    socket.addEventListener('close', function (event) {
+        console.log('WebSocket is closed now.');
+    });
+
+    socket.addEventListener('error', function (event) {
+        console.error('WebSocket error observed:', event);
+    });
+    return socket;
 }
 
-async function callJuliaFunctionWithReturn(func, args = []) {
-    while (functionRunning === true) {
-        await sleep(100);
-        console.log("Blocking", functionRunning);
-    }
-    functionRunning = true;
+function waitForOpenConnection(socket) {
+    return new Promise((resolve, reject) => {
+        if (socket.readyState === WebSocket.OPEN) {
+            resolve();
+        } else {
+            socket.addEventListener('open', () => {
+                resolve();
+            });
 
-    changeCallJuliaFunctionReturnValue("Waiting for Julia function to return...")
-
-    const h1Before = document.getElementById('callJuliaFunctionReturn').innerHTML;
-    callJuliaFunction(func, args, true);
-
-    let h1After = document.getElementById('callJuliaFunctionReturn').innerHTML;
-    while (h1Before == h1After) {
-        h1After = document.getElementById('callJuliaFunctionReturn').innerHTML;
-        await sleep(100);
-    }
-    if (h1After == "") {
-        functionRunning = false;
-        return null;
-    }
-    let stringified = JSON.stringify(h1After);
-    const answer = JSON.parse(stringified);
-    functionRunning = false;
-    return answer;
+            socket.addEventListener('error', (err) => {
+                reject(new Error('WebSocket connection failed: ' + err.message));
+            });
+        }
+    });
 }
+
+async function callJuliaFunction(func_name, { args = [], kwargs = {}, response_callback = () => { } } = {}) {
+    const socket = setupWebsocket();
+    await waitForOpenConnection(socket);
+
+    console.log('Calling Julia function:', func_name, 'with args:', args, 'and kwargs:', kwargs, 'and response callback:', response_callback);
+
+    cmd = {
+        "type": "julia_function_call",
+        "function": func_name,
+        "args": args,
+        "kwargs": kwargs
+    }
+    socket.send(JSON.stringify(cmd));
+
+    return new Promise((resolve, reject) => {
+        socket.addEventListener('message', (event) => {
+
+
+            if (JSON.parse(event.data).type === 'return') {
+                socket.close();
+                resolve(JSON.parse(event.data).return);
+            }
+            else if (JSON.parse(event.data).type === 'response') {
+                response_callback(JSON.parse(event.data).response);
+            }
+        });
+    });
+}
+
+

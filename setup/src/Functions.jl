@@ -1,12 +1,8 @@
-function hello_world_return()
-    time_str = string(time())
-    return "Hello from Julia!" * time_str
-end
+function get_cube(num; ws)
+	for i in 1:50
+		PlutoBoard.send_to_ws(ws, i/50)
+		sleep(0.05)
+	end
 
-function ping_pong(args...)
-    return args
-end
-
-function get_square(num)
-    return num^2
+	return num^3
 end

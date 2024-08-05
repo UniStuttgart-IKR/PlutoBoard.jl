@@ -103,6 +103,11 @@ function load_js()::HypertextLiteral.Result
 	//add scripts to body
 	addScriptLoop:
 	for (let i = 0; i < scripts.length; i++) {
+		if (window.self !== window.top && (scripts[i].includes('DO NOT LOAD IN IFRAME') || paths[i].startsWith('static/javascript/'))) {
+			continue addScriptLoop
+		}
+
+
 		//check if script is already loaded
 		let queryScripts = document.querySelectorAll('script');
 		for (let j = 0; j < queryScripts.length; j++) {

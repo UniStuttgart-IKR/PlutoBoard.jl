@@ -6,20 +6,35 @@ function open_file(path)
 end
 
 
+function copy_with_delete(from, to)
+	cp(from, to, force=true)
+	@debug "Copied $from to $to"
+end
+
 
 function setup()
 	cwd = pwd()
-	println(plutoboard_filepath)
 	#copy contents of setup folder into cwd
 	for file in readdir("$(plutoboard_filepath)/setup")
 		if file == "src"
 			#copy contents of src folder into cwd
 			for src_file in readdir("$(plutoboard_filepath)/setup/src")
-				cp("$(plutoboard_filepath)/setup/src/$src_file", "$cwd/src/$src_file")
+				copy_with_delete("$(plutoboard_filepath)/setup/src/$src_file", "$cwd/src/$src_file")
+			end
+			continue
+		elseif file == "internal"
+			#check if internal folder exists
+			if !isdir("$cwd/internal")
+				mkdir("$cwd/internal")
+			end
+
+			#copy contents of internal folder into cwd
+			for internal_file in readdir("$(plutoboard_filepath)/setup/internal")
+				copy_with_delete("$(plutoboard_filepath)/setup/internal/$internal_file", "$cwd/internal/$internal_file")
 			end
 			continue
 		end
-		cp("$(plutoboard_filepath)/setup/$file", "$cwd/$file")
+		copy_with_delete("$(plutoboard_filepath)/setup/$file", "$cwd/$file")
 	end
 
 	#open Project.toml and get project name
@@ -32,14 +47,20 @@ function setup()
 			module $(project_name)
 
 			using PlutoBoard
+			using HTTP
+			using HTTP.WebSockets
+			using JSON
 
 			include("Main.jl")
 			include("Functions.jl")
+			include("../internal/Internal.jl")
 
 
 			end""",
 		)
 	end
+
+	@info "Setup complete"
 end
 
 function get_package_name()
