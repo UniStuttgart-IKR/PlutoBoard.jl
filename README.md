@@ -5,11 +5,7 @@ This is still in its very early states, so don't expect too much.
 # Setup
 Generate your package
 ```bash
-$> Julia -e 'using Pkg; Pkg.generate("YOUR_PACKAGE_NAME")'
-```
-cd into it
-```bash
-$> cd YOUR_PACKAGE_NAME
+$> Julia -e 'using Pkg; Pkg.generate("YOUR_PACKAGE_NAME")' && cd YOUR_PACKAGE_NAME
 ```
 Add PlutoBoard and set it up
 ```bash
