@@ -3,27 +3,19 @@
 This is still in its very early states, so don't expect too much.
 
 # Setup
+Generate your package
 ```bash
-$ pkg> generate ExampleProject
+$> Julia -e 'using Pkg; Pkg.generate("YOUR_PACKAGE_NAME")'
 ```
+cd into it
 ```bash
-$ cd ExampleProject
+$> cd YOUR_PACKAGE_NAME
 ```
+Add PlutoBoard and set it up
 ```bash
-/ExampleProject$ Julia --project
+/YOUR_PACKAGE_NAME$> Julia --project -e 'using Pkg; Pkg.add("HTTP"); Pkg.add("JSON"); Pkg.add(url="https://github.com/UniStuttgart-IKR/PlutoBoard.jl"); using PlutoBoard; PlutoBoard.setup()' 
 ```
+Run the notebook
 ```bash
-(ExampleProject) pkg> add https://github.com/UniStuttgart-IKR/PlutoBoard.jl
-```
-```bash
-(ExampleProject) pkg> add Pluto
-```
-```bash
-julia> using PlutoBoard, Pluto
-```
-```bash
-julia> PlutoBoard.setup()
-```
-```bash
-julia> Pluto.run(notebook="PlutoBoardNotebook.jl")
+/YOUR_PACKAGE_NAME$> Julia --project -e 'using Pluto; Pluto.run(notebook="PlutoBoardNotebook.jl")'
 ```
