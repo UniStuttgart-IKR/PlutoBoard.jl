@@ -1,24 +1,42 @@
+export set_fullscreen, load_bootstrap_css, load_bootstrap_js, load_html, load_html_string_to_body, load_js
+
 function set_fullscreen()
 	if PlutoBoard.fullscreen
 		return @htl("<script>resizePlutoCell()</script>")
 	end
 end
 
-function load_bootstrap_css()
+
+"""
+	load_bootstrap_css() -> HypertextLiteral.Result
+
+Returns a HypertextLiteral.Result object with the bootstrap css link.
+"""
+function load_bootstrap_css()::HypertextLiteral.Result
 	if PlutoBoard.bootstrap
 		return @htl("""<link href="$(config["cdn"]["bootstrap_css"])" rel="stylesheet" 
 		integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">""")
 	end
 end
 
-function load_bootstrap_js()
+"""
+	load_bootstrap_js() -> HypertextLiteral.Result
+
+Returns a HypertextLiteral.Result object with the bootstrap js link.
+"""
+function load_bootstrap_js()::HypertextLiteral.Result
 	if PlutoBoard.bootstrap
 		return @htl("""<script src="$(config["cdn"]["bootstrap_js"])" 
 		integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>""")
 	end
 end
 
-function load_html()
+"""
+	load_html() -> HTML
+
+Returns a HTML object with the html and css loaded.
+"""
+function load_html()::HTML
 	html_string = css_string = ""
 	open(html_path) do file
 		html_string = read(file, String)
@@ -31,6 +49,12 @@ function load_html()
 	return html
 end
 
+
+"""
+	load_html_string_to_body() -> HypertextLiteral.Result
+
+Returns a HypertextLiteral.Result object to call a javascript function to insert the html and css to the body.
+"""
 function load_html_string_to_body()
 	#get filepath where this module is loaded
 	plutoboard_filepath = dirname(@__FILE__)
@@ -66,9 +90,12 @@ function load_html_string_to_body()
 	""")
 end
 
+"""
+	load_js() -> HypertextLiteral.Result
 
+Returns a HypertextLiteral.Result object to load all javascript files.
+"""
 function load_js()::HypertextLiteral.Result
-
 	paths = []
 	for path in ["""$(plutoboard_filepath)/$(config["paths"]["javascript_dir"])/""", "static/javascript/"]
 		for file in readdir(path)
