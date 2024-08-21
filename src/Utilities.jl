@@ -1,3 +1,5 @@
+using Pkg
+
 function open_file(path)
 	f = open(path, "r")
 	content = read(f, String)
@@ -7,12 +9,22 @@ end
 
 
 function copy_with_delete(from, to)
-	cp(from, to, force=true)
-	@debug "Copied $from to $to"
+	cp(from, to, force = true)
+	chmod(to, 0o644)
+	@info "Copied $from to $to"
 end
 
 
 function setup()
+	@info "Setting up PlutoBoard"
+
+	Pkg.add("HTTP")
+	Pkg.add("Sockets")
+	Pkg.add("JSON")
+
+
+
+
 	cwd = pwd()
 	#copy contents of setup folder into cwd
 	for file in readdir("$(plutoboard_filepath)/setup")
