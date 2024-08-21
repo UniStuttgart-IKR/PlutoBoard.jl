@@ -1,4 +1,5 @@
 # PlutoBoard.jl
+[![](https://img.shields.io/badge/docs-dev-blue.svg)](https://UniStuttgart-IKR.github.io/PlutoBoard.jl/dev)
 
 This is still in its very early states, so don't expect too much.
 
