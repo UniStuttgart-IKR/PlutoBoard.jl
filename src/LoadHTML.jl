@@ -35,6 +35,7 @@ function load_html_string_to_body()
 	#get filepath where this module is loaded
 	plutoboard_filepath = dirname(@__FILE__)
 	internal_css_path = joinpath(plutoboard_filepath, "static/css/internal.css")
+	always_load_css_path = joinpath(plutoboard_filepath, "static/css/alwaysLoad.css")
 
 
 	html_string = css_string = ""
@@ -43,12 +44,15 @@ function load_html_string_to_body()
 	end
 	open(css_path) do file
 		open(internal_css_path) do css_file
-			internal_css = read(css_file, String)
+			open(always_load_css_path) do always_css_file
+				internal_css = read(css_file, String)
+				always_css = read(always_css_file, String)
 
-			if hide_notebook == true
-				css_string = """<style>$(read(file, String)) $(internal_css)</style>"""
-			else
-				css_string = """<style>$(read(file, String))</style>"""
+				if hide_notebook == true
+					css_string = """<style>$(read(file, String)) $(internal_css) /n$(always_css)</style>"""
+				else
+					css_string = """<style>$(read(file, String)) $(always_css)</style>"""
+				end
 			end
 		end
 	end

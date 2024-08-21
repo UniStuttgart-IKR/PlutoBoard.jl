@@ -7,10 +7,6 @@ iframe {
     width: 100%;
 }
 
-#export {
-    display: none;
-}
-
 pluto-editor {
     display: none;
 }
