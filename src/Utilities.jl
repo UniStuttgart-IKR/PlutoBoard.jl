@@ -64,7 +64,7 @@ function setup()
 			using JSON
 
 			include("Main.jl")
-			include("Functions.jl")
+			include("JSCallableFunctions.jl")
 			include("../internal/Internal.jl")
 
 
