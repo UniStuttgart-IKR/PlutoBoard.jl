@@ -1,4 +1,4 @@
-export callJuliaFunction
+export callJuliaFunction, placeIframe, updateAllCells, updateCell, insertHTMLToBody
 
 """
 ```javascript
@@ -30,6 +30,50 @@ callJuliaFunction("get_cube", {
 ```
 """
 function callJuliaFunction()
-
 end
 
+
+"""
+```javascript
+placeIframe(targetCellID, destinationDiv)
+```
+Places an iframe of the site itself in `destinationDiv` only showing `targetCellID`.
+"""
+function placeIframe()
+end
+
+"""
+```javascript
+placeAlliFrames()
+```
+Calls `placeIframe` for every div with `cellid` attribute.
+"""
+function placeAlliFrames()
+end
+
+"""
+```javascript
+async updateAllCells()
+```
+Forcefully reevaluates all Pluto cells.
+"""
+function updateAllCells()
+end
+
+"""
+```javascript
+async updateCell(cellid)
+```
+Reevaluates Pluto cell with `cellid`.
+"""
+function updateCell()
+end
+
+"""
+```javascript
+insertHTMLToBody(html, css)
+```
+Appends html and css string below body.
+"""
+function insertHTMLToBody()
+end

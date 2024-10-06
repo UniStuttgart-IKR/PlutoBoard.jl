@@ -3,7 +3,7 @@
 ```@contents
 ```
 
-## Interface Functions
+## Interface functions
 
 ### Julia interface
 ```@docs
@@ -16,12 +16,21 @@ These functions can be called in the browser and are written in **JavaScript**.
 callJuliaFunction()
 ```
 
-## Internal Functions
+## Internal functions
 
+### Julia internal functions
 ```@docs
 load_bootstrap_css()
 load_bootstrap_js()
 load_html()
 load_html_string_to_body()
 load_js()
+```
+
+### JavaScript internal functions
+```@docs
+placeIframe()
+updateAllCells()
+updateCell()
+insertHTMLToBody()
 ```
