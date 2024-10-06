@@ -10,6 +10,7 @@ include("InterfaceFunctions.jl")
 include("LoadHTML.jl")
 include("Utilities.jl")
 include("JSCommands/HandleCommands.jl")
+include("../internal/javascript/Dummy.jl")
 
 const plutoboard_filepath = dirname(dirname(pathof(PlutoBoard)))
 const config = TOML.parsefile(plutoboard_filepath * "/config/config.toml")

@@ -13,11 +13,10 @@ function calculateVeryHardStuff() {
                 outputP.innerHTML = `Calculating the cube of ${number}... ${Math.round(r * 100)}% done!`;
             }
         )
-    })
-        .then(
-            r => {
-                const outputP = document.getElementById("buttonOutput");
-                outputP.innerHTML = `The cube of ${number} is ${r}`;
-            }
-        )
+    }).then(
+        r => {
+            const outputP = document.getElementById("buttonOutput");
+            outputP.innerHTML = `The cube of ${number} is ${r}`;
+        }
+    )
 }
