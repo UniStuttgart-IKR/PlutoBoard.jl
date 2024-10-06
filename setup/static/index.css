@@ -11,19 +11,13 @@
     height: 60vh;
 }
 
-.cell-col {
+/* .cell-col {
     width: 26vw !important;
     max-width: 26vw !important;
-}
+} */
 
 .cell-row {
     height: 100%;
-}
-
-
-#main-export {
-    height: 100vh;
-    background: rgb(46, 48, 42);
 }
 
 #messages {
@@ -72,4 +66,14 @@
 
 .openbtn:hover {
     background-color: #444;
+}
+
+/* #main-export {
+    all: initial;
+} */
+
+#main-export {
+    min-height: 100vh;
+    overflow-y: scroll;
+    background: rgb(46, 48, 42);
 }

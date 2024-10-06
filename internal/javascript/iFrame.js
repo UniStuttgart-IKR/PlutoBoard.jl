@@ -2,7 +2,7 @@
 
 function placeIframe(targetCellID, destinationDiv) {
     const iFrameID = `cell-iframe-${targetCellID}`;
-    const plutoBoardExportDivID = 'main-export';
+    const plutoBoardExportDivID = 'app';
 
     let listener = setInterval(function () {
         if (destinationDiv !== null) {
@@ -148,7 +148,7 @@ function placeAlliFrames() {
 }
 
 mainExportListener = setInterval(function () {
-    if (document.querySelector('#main-export')) {
+    if (document.querySelector('#app')) {
         clearInterval(mainExportListener);
         placeAlliFrames();
     }

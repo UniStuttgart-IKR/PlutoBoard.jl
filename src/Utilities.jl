@@ -62,14 +62,14 @@ function setup()
 			using HTTP
 			using HTTP.WebSockets
 			using JSON
+			using Sockets
 
 			include("Main.jl")
-			include("JSCallableFunctions.jl")
-			include("../internal/Internal.jl")
+			include("Functions.jl")
 
+			global global_websocket = nothing
 
-			end""",
-		)
+			end""")
 	end
 
 	@info "Setup complete"
