@@ -14,8 +14,8 @@ Returns a HypertextLiteral.Result object with the bootstrap css link.
 """
 function load_bootstrap_css()
 	if PlutoBoard.bootstrap
-		return @htl("""<link href="$(config["cdn"]["bootstrap_css"])" rel="stylesheet" 
-		integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">""")
+		# return @htl("""<link href="$(config["cdn"]["bootstrap_css"])" rel="stylesheet" 
+		# integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">""")
 	end
 end
 
@@ -26,8 +26,9 @@ Returns a HypertextLiteral.Result object with the bootstrap js link.
 """
 function load_bootstrap_js()
 	if PlutoBoard.bootstrap
-		return @htl("""<script src="$(config["cdn"]["bootstrap_js"])" 
-		integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>""")
+		# return @htl("""<script src="$(config["cdn"]["bootstrap_js"])" 
+		# integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>""")
+		return @htl("""<script src="https://cdn.tailwindcss.com"></script>""")
 	end
 end
 
@@ -62,26 +63,31 @@ function load_html_string_to_body()
 	always_load_css_path = joinpath(plutoboard_filepath, "static/css/alwaysLoad.css")
 
 
-	html_string = css_string = ""
+	html_string = css_string = internal_css = always_css = vue_css = ""
 	open(html_path) do file
 		html_string = read(file, String)
 	end
 	open(css_path) do file
-		open(internal_css_path) do css_file
-			open(always_load_css_path) do always_css_file
-				open("static/vue.css") do vue_css_file
-					internal_css = read(css_file, String)
-					always_css = read(always_css_file, String)
-					vue_css = read(vue_css_file, String)
-
-					if hide_notebook == true
-						css_string = """<style>$(read(file, String)) $(internal_css) $(vue_css) $(always_css)</style>"""
-					else
-						css_string = """<style>$(read(file, String)) $(vue_css) $(always_css)</style>"""
-					end
-				end
-			end
+		css_string = read(file, String)
+	end
+	open(internal_css_path) do file
+		internal_css = read(file, String)
+	end
+	open(always_load_css_path) do file
+		always_css = read(file, String)
+	end
+	try
+		open("static/vue.css") do file
+			vue_css = read(file, String)
 		end
+	catch
+	end
+
+
+	if hide_notebook == true
+		css_string = """<style>$(css_string) $(internal_css) $(vue_css) $(always_css)</style>"""
+	else
+		css_string = """<style>$(css_string) $(vue_css) $(always_css)</style>"""
 	end
 
 

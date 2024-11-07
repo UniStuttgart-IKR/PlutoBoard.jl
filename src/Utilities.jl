@@ -1,6 +1,15 @@
 using Pkg
 
-function open_file(path)
+export open_file, copy_with_delete, setup, get_package_name
+
+"""
+	open_file(
+		path::String
+	)::String
+
+Opens a file and returns its content as a string.
+"""
+function open_file(path::String)::String
 	f = open(path, "r")
 	content = read(f, String)
 	close(f)
@@ -8,14 +17,29 @@ function open_file(path)
 end
 
 
-function copy_with_delete(from, to)
+"""
+	copy_with_delete(
+		from::String,
+		to::String
+	)::nothing
+
+Copies a file from one location to another and deletes the original file. Sets the permissions of the copied file to 644.
+"""
+function copy_with_delete(from::String, to::String)
 	cp(from, to, force = true)
 	chmod(to, 0o644)
 	@info "Copied $from to $to"
 end
 
+"""
+	setup(
+		example::String="default"
+	)::nothing
 
-function setup()
+Sets up the PlutoBoard module by copying the necessary files to the current working directory.
+Example can either be `default` or `vue` or `vue_moving_cells`.
+"""
+function setup(; example::String = "default")
 	@info "Setting up PlutoBoard"
 
 	Pkg.add("HTTP")
@@ -34,19 +58,23 @@ function setup()
 				copy_with_delete("$(plutoboard_filepath)/setup/src/$src_file", "$cwd/src/$src_file")
 			end
 			continue
-		elseif file == "internal"
-			#check if internal folder exists
-			if !isdir("$cwd/internal")
-				mkdir("$cwd/internal")
-			end
-
-			#copy contents of internal folder into cwd
-			for internal_file in readdir("$(plutoboard_filepath)/setup/internal")
-				copy_with_delete("$(plutoboard_filepath)/setup/internal/$internal_file", "$cwd/internal/$internal_file")
-			end
+		elseif file == "examples"
 			continue
 		end
+
 		copy_with_delete("$(plutoboard_filepath)/setup/$file", "$cwd/$file")
+	end
+
+
+	if example == "vue"
+		copy_with_delete("$(plutoboard_filepath)/setup/static/examples/vue/index.html", "$cwd/static/index.html")
+		copy_with_delete("$(plutoboard_filepath)/setup/static/examples/vue/vue.css", "$cwd/static/vue.css")
+		copy_with_delete("$(plutoboard_filepath)/setup/static/examples/vue/vue.js", "$cwd/static/javascript/vue.js")
+	elseif example == "vue_moving_cells"
+		copy_with_delete("$(plutoboard_filepath)/setup/static/examples/vue_moving_cells/index.html", "$cwd/static/index.html")
+		copy_with_delete("$(plutoboard_filepath)/setup/static/examples/vue_moving_cells/vue.css", "$cwd/static/vue.css")
+		copy_with_delete("$(plutoboard_filepath)/setup/static/examples/vue_moving_cells/vue.js", "$cwd/static/javascript/vue.js")
+
 	end
 
 	#open Project.toml and get project name
@@ -75,7 +103,13 @@ function setup()
 	@info "Setup complete"
 end
 
-function get_package_name()
+
+"""
+	get_package_name()::String
+
+Returns the name of the package from the Project.toml file.
+"""
+function get_package_name()::String
 	project_toml_path = joinpath(pwd(), "Project.toml")
 	project_toml = TOML.parsefile(project_toml_path)
 	return project_toml["name"]

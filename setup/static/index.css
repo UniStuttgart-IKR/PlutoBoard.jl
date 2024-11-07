@@ -1,24 +1,7 @@
-.h1-testing {
-    color: red;
-}
-
-.cell-testing-cont {
-    background: rgb(69, 71, 65);
-    margin-top: 10vh;
-    border-radius: 20px;
-    padding: 2vh;
-    width: 70vw !important;
-    height: 60vh;
-}
-
 /* .cell-col {
     width: 26vw !important;
     max-width: 26vw !important;
 } */
-
-.cell-row {
-    height: 100%;
-}
 
 #messages {
     color: white;
@@ -66,14 +49,4 @@
 
 .openbtn:hover {
     background-color: #444;
-}
-
-/* #main-export {
-    all: initial;
-} */
-
-#main-export {
-    min-height: 100vh;
-    overflow-y: scroll;
-    background: rgb(46, 48, 42);
 }

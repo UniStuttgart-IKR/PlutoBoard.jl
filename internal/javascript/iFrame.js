@@ -2,7 +2,7 @@
 
 function placeIframe(targetCellID, destinationDiv) {
     const iFrameID = `cell-iframe-${targetCellID}`;
-    const plutoBoardExportDivID = 'app';
+    const plutoBoardExportDivID = 'main-export';
 
     let listener = setInterval(function () {
         if (destinationDiv !== null) {
@@ -85,6 +85,7 @@ function placeIframe(targetCellID, destinationDiv) {
                                 let main = iframeDoc.querySelector('main');
                                 main.style.margin = '0';
                                 main.style.padding = '0';
+                                main.style.display = 'contents';
 
                                 //hide preamble
                                 let preamble = iframeDoc.querySelector('preamble');
@@ -124,6 +125,8 @@ function placeIframe(targetCellID, destinationDiv) {
                                 //pluto-notebook border radius
                                 let notebook = iframeDoc.querySelector('pluto-notebook');
                                 notebook.style.borderRadius = '4vw';
+                                notebook.style.width = '100vw';
+                                notebook.style.height = '100vh';
 
                             }
                         }, 100);
@@ -148,7 +151,7 @@ function placeAlliFrames() {
 }
 
 mainExportListener = setInterval(function () {
-    if (document.querySelector('#app')) {
+    if ((document.querySelector('#app') !== undefined) || (document.querySelector("#main-export") !== undefined)) {
         clearInterval(mainExportListener);
         placeAlliFrames();
     }
