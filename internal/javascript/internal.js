@@ -35,4 +35,11 @@ function closeNav() {
     document.getElementById("mySidebar").style.width = "0";
 }
 
+function resizeInitial() {
+    let element = document.getElementById("pluto-nav").parentElement.parentElement;
+    element.style.minHeight = "0";
+}
+
+resizeInitial()
+
 

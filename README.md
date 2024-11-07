@@ -25,4 +25,5 @@ There is some hierarchy:
 
 There is a simple example in `src/Functions.jl`, `src/static/index.html` and `src/static/javascript/javascript.js` about calling a julia function from javascript with callbacks.
 
-# Docs are about to come
+Screenshot of a simple example:
+![image](https://github.com/user-attachments/assets/7626b989-23c4-4932-9e6b-4caa3540cc1f)
