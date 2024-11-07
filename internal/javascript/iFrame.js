@@ -128,6 +128,10 @@ function placeIframe(targetCellID, destinationDiv) {
                                 notebook.style.width = '100vw';
                                 notebook.style.height = '100vh';
 
+                                //hide pluto-trafficlight
+                                let trafficLight = iframeDoc.querySelector('pluto-trafficlight');
+                                trafficLight.style.display = 'none';
+
                             }
                         }, 100);
                     }
