@@ -24,3 +24,6 @@ There is some hierarchy:
 - all javascript files in `static/javascript/` are getting executed, though `static/javascript/javascript.js` is the last one, so use this as js entry point
 
 There is a simple example in `src/Functions.jl`, `src/static/index.html` and `src/static/javascript/javascript.js` about calling a julia function from javascript with callbacks.
+
+Screenshot of a simple example:
+![image](https://github.com/user-attachments/assets/7626b989-23c4-4932-9e6b-4caa3540cc1f)
