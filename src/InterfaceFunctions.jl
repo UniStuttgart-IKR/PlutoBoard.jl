@@ -5,19 +5,22 @@ export initialize, javascript
 		html_path::String,
 		css_path::String
 		;
-		fullscreen::Bool = false,
-		bootstrap::Bool = false,
-		hide_notebook::Bool = true
+		fullscreen::Bool = true,
+		hide_notebook::Bool = true,
+		scripts::Array{String} = [],
+		links::Array{String} = [],
 	) -> nothing
 
 Initializes the PlutoBoard module with parameters.
 """
-function initialize(html_path::String, css_path::String; fullscreen::Bool = false, bootstrap::Bool = false, hide_notebook::Bool = true)
+function initialize(html_path::String, css_path::String; fullscreen::Bool = true, hide_notebook::Bool = true, scripts = [], stylesheets = [])
 	PlutoBoard.html_path = html_path
 	PlutoBoard.css_path = css_path
 	PlutoBoard.fullscreen = fullscreen
-	PlutoBoard.bootstrap = bootstrap
 	PlutoBoard.hide_notebook = hide_notebook
+
+	PlutoBoard.scripts_urls = scripts
+	PlutoBoard.stylesheet_urls = stylesheets
 end
 
 

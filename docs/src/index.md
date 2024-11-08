@@ -109,8 +109,7 @@ callJuliaFunction()
 
 ### Julia internal functions
 ```@docs
-load_bootstrap_css()
-load_bootstrap_js()
+load_scripts_and_links()
 load_html()
 load_html_string_to_body()
 load_js()

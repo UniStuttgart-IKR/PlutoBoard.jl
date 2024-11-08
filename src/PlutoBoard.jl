@@ -18,20 +18,11 @@ const config = TOML.parsefile(plutoboard_filepath * "/config/config.toml")
 
 html_path::Union{String, Nothing} = nothing
 css_path::Union{String, Nothing} = nothing
-fullscreen::Bool = false
-bootstrap::Bool = false
-
+fullscreen::Bool = true
 hide_notebook::Bool = true
 
-
-
-function log(msg)
-	open("log.txt", "a") do f
-		redirect_stdout(f) do
-			println(msg)
-		end
-	end
-end
+scripts_urls::Array{String} = []
+stylesheet_urls::Array{String} = []
 
 end
 

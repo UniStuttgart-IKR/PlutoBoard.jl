@@ -30,10 +30,7 @@ begin
 end
 
 # ╔═╡ c8f44fcc-b2b4-49e6-8c5c-93ee51e42d1a
-PlutoBoard.load_bootstrap_css()
-
-# ╔═╡ 3117a56f-2a81-4da7-b832-cc8ade73b136
-PlutoBoard.load_bootstrap_js()
+PlutoBoard.load_scripts_and_links()
 
 # ╔═╡ 191eb887-6681-4f75-8192-240ca3fc5da2
 PlutoBoard.load_html_string_to_body()
@@ -57,7 +54,6 @@ function handle_julia_function_call(ws, parsed)
 	func = eval(expr)
 
 	if !isa(func, Function) #TODO move above for it to work..
-		PlutoBoard.log("Function $function_name not found")
 		send(ws, "Function $function_name not found")
 	end
 
@@ -131,7 +127,6 @@ end
 # ╠═96ff4362-fda0-4cae-9786-2dc29626479c
 # ╠═64f17c2b-5f54-4df5-8d7d-d57f3b314b5b
 # ╠═c8f44fcc-b2b4-49e6-8c5c-93ee51e42d1a
-# ╠═3117a56f-2a81-4da7-b832-cc8ade73b136
 # ╠═191eb887-6681-4f75-8192-240ca3fc5da2
 # ╠═7d9362b1-c508-4cad-add2-4f62a6ad8409
 # ╠═a12112c1-58e7-473b-a8c2-d825d0f416d9

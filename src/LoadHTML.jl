@@ -6,31 +6,25 @@ function set_fullscreen()
 	end
 end
 
-
 """
-	load_bootstrap_css() -> HypertextLiteral.Result
+	load_scripts_and_links() -> HypertextLiteral.Result
 
-Returns a HypertextLiteral.Result object with the bootstrap css link.
+Returns a HypertextLiteral.Result object with scritps and links to load.
 """
-function load_bootstrap_css()
-	if PlutoBoard.bootstrap
-		# return @htl("""<link href="$(config["cdn"]["bootstrap_css"])" rel="stylesheet" 
-		# integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">""")
+function load_scripts_and_links()
+	scripts_and_links_html = ""
+
+	for url in PlutoBoard.scripts_urls
+		scripts_and_links_html *= """<script src="$url"/>"""
 	end
+
+	for url in PlutoBoard.stylesheet_urls
+		scripts_and_links_html *= """<link href="$url" rel="stylesheet"/>"""
+	end
+
+	return HTML(scripts_and_links_html)
 end
 
-"""
-	load_bootstrap_js() -> HypertextLiteral.Result
-
-Returns a HypertextLiteral.Result object with the bootstrap js link.
-"""
-function load_bootstrap_js()
-	if PlutoBoard.bootstrap
-		# return @htl("""<script src="$(config["cdn"]["bootstrap_js"])" 
-		# integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>""")
-		return @htl("""<script src="https://cdn.tailwindcss.com"></script>""")
-	end
-end
 
 """
 	load_html() -> HTML
