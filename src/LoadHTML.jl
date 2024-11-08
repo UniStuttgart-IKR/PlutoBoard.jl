@@ -1,4 +1,4 @@
-export set_fullscreen, load_bootstrap_css, load_bootstrap_js, load_html, load_html_string_to_body, load_js
+export set_fullscreen, load_scripts_and_links, load_html, load_html_string_to_body, load_js
 
 function set_fullscreen()
 	if PlutoBoard.fullscreen
