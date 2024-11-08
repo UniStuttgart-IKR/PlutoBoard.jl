@@ -1,7 +1,7 @@
 # PlutoBoard.jl
 [![](https://img.shields.io/badge/docs-dev-blue.svg)](https://UniStuttgart-IKR.github.io/PlutoBoard.jl/dev)
 
-This is still in its very early states, so don't expect too much.
+PlutBoard.jl is still in an early state.
 
 # Setup
 Generate your package
@@ -26,4 +26,5 @@ There is some hierarchy:
 There is a simple example in `src/Functions.jl`, `src/static/index.html` and `src/static/javascript/javascript.js` about calling a julia function from javascript with callbacks.
 
 Screenshot of a simple example:
-![image](https://github.com/user-attachments/assets/7626b989-23c4-4932-9e6b-4caa3540cc1f)
+![image](https://github.com/user-attachments/assets/af99abeb-f613-4b8f-9ae2-c25fb15107bd)
+
