@@ -245,7 +245,7 @@ weakdeps = ["REPL"]
     REPLExt = "REPL"
 
 [[deps.PlutoBoard]]
-deps = ["HTTP", "HypertextLiteral", "JSON", "Pkg", "TOML"]
+deps = ["HTTP", "HypertextLiteral", "JSON", "Pkg", "TOML", "UUIDs"]
 path = ".."
 uuid = "447e6095-edb7-4c27-ab1f-4a324c08f539"
 version = "0.1.1"

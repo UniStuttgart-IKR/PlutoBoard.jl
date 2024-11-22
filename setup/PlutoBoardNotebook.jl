@@ -1,5 +1,5 @@
 ### A Pluto.jl notebook ###
-# v0.19.40
+# v0.20.3
 
 using Markdown
 using InteractiveUtils
@@ -50,14 +50,25 @@ function handle_julia_function_call(ws, parsed)
 	end
 	kwargs = NamedTuple(PlutoBoard.parse_to_symbol(kwargs))
 
-	expr = Meta.parse("$user_package.$function_name")
+	if parsed[:internal] == true
+		expr = Meta.parse("PlutoBoard.$function_name")
+	else
+		expr = Meta.parse("$user_package.$function_name")
+	end
 	func = eval(expr)
 
 	if !isa(func, Function) #TODO move above for it to work..
 		send(ws, "Function $function_name not found")
 	end
 
-	val = func(args...; kwargs..., ws = ws)
+	#get supported arguments of function 
+
+	local val;
+	try
+		val = func(args...; kwargs..., ws = ws)
+	catch MethodError
+		val = func(args...; kwargs...)
+	end
 
 	message = Dict(
 		"type" => "return",
@@ -86,38 +97,10 @@ begin
 end
 
 # ╔═╡ ffa65a89-13b7-41b1-b1d5-95605c5ae39d
-x=1
+x = 1
 
-# ╔═╡ 13eafc45-2e29-4b2b-999b-4d89721124ef
-x+3
-
-# ╔═╡ 4be2f7e7-3b4e-4ab9-bd6d-4d3b67af707f
-begin
-	println("Numbers 1-4:")
-	for i in 1:4
-		println(i)
-	end
-end
-
-# ╔═╡ 5eaa4d8e-e520-48fb-b5e7-27531c852b3b
-begin
-	println("Numbers 1-4:")
-	for i in 1:4
-		println(i)
-	end
-end
-
-# ╔═╡ b390010e-491f-4add-8b59-d1a3f9307080
-5
-
-# ╔═╡ 3b1adadc-62b4-4404-94cb-14408a1f4a58
-6
-
-# ╔═╡ b9b191d5-d492-4799-bb10-6c2ea8827b23
-7
-
-# ╔═╡ 4d02385d-0b94-4df1-a66d-45c2e4fe2da2
-8
+# ╔═╡ bbcda6f9-7ddf-4e5c-a43a-3804a9e51866
+x
 
 # ╔═╡ Cell order:
 # ╠═caff9170-f1e7-11ee-3e0a-7bed8d1d0dd4
@@ -132,10 +115,4 @@ end
 # ╠═a12112c1-58e7-473b-a8c2-d825d0f416d9
 # ╠═147ed5fe-0133-4eef-96f2-afafe9385f27
 # ╠═ffa65a89-13b7-41b1-b1d5-95605c5ae39d
-# ╠═13eafc45-2e29-4b2b-999b-4d89721124ef
-# ╠═4be2f7e7-3b4e-4ab9-bd6d-4d3b67af707f
-# ╠═5eaa4d8e-e520-48fb-b5e7-27531c852b3b
-# ╠═b390010e-491f-4add-8b59-d1a3f9307080
-# ╠═3b1adadc-62b4-4404-94cb-14408a1f4a58
-# ╠═b9b191d5-d492-4799-bb10-6c2ea8827b23
-# ╠═4d02385d-0b94-4df1-a66d-45c2e4fe2da2
+# ╠═bbcda6f9-7ddf-4e5c-a43a-3804a9e51866

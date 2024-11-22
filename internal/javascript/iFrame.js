@@ -75,6 +75,12 @@ function placeIframe(targetCellID, destinationDiv) {
                                 let mainExport = iframeDoc.querySelector(`#${plutoBoardExportDivID}`);
                                 mainExport.style.display = 'none';
 
+                                //hide .not-iframe
+                                let notIframe = iframeDoc.querySelectorAll('.not-iframe');
+                                notIframe.forEach(element => {
+                                    element.style.display = 'none';
+                                });
+
                                 //hide #helpbox-wrapper
                                 let helpbox = iframeDoc.querySelector('#helpbox-wrapper');
                                 helpbox.style.display = 'none';
