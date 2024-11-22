@@ -27,7 +27,7 @@ Copies a file from one location to another and deletes the original file. Sets t
 """
 function copy_with_delete(from::String, to::String)
 	cp(from, to, force = true)
-	chmod(to, 0o644)
+	chmod(to, 0o666)
 	@info "Copied $from to $to"
 end
 
@@ -42,13 +42,11 @@ Example can either be `default` or `vue` or `vue_moving_cells`.
 function setup(; example::String = "default")
 	@info "Setting up PlutoBoard"
 
+	Pkg.add("Pluto")
 	Pkg.add("HTTP")
 	Pkg.add("Sockets")
 	Pkg.add("JSON")
-
-
-
-
+	
 	cwd = pwd()
 	#copy contents of setup folder into cwd
 	for file in readdir("$(plutoboard_filepath)/setup")
