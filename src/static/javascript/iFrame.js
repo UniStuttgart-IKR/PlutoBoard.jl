@@ -1,6 +1,4 @@
-//DO NOT LOAD IN IFRAME
-
-function placeIframe(targetCellID, destinationDiv) {
+export function placeIframe(targetCellID, destinationDiv) {
     const iFrameID = `cell-iframe-${targetCellID}`;
     const plutoBoardExportDivID = 'main-export';
 
@@ -13,6 +11,11 @@ function placeIframe(targetCellID, destinationDiv) {
             let notebookID = notebook.id;
 
             let div = destinationDiv;
+            //remove all iFrame children of div
+            div.querySelectorAll('iframe').forEach(iframe => {
+                iframe.remove();
+            });
+
             let iframe = document.createElement('iframe');
             iframe.id = iFrameID;
             iframe.src = `http://localhost:1234/edit?id=${notebookID}`;
@@ -160,9 +163,11 @@ export function placeAlliFrames() {
     });
 }
 
-mainExportListener = setInterval(function () {
-    if ((document.querySelector('#app') !== undefined) || (document.querySelector("#main-export") !== undefined)) {
-        clearInterval(mainExportListener);
-        placeAlliFrames();
-    }
-}, 100);
+export function setIFrames() {
+    const mainExportListener = setInterval(function () {
+        if ((document.querySelector('#app') !== undefined) || (document.querySelector("#main-export") !== undefined)) {
+            clearInterval(mainExportListener);
+            placeAlliFrames();
+        }
+    }, 100);
+}

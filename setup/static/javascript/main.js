@@ -1,5 +1,4 @@
-console.log("Hello from PlutoBoard.jl")
-
+import { callJuliaFunction } from "/internal/static/javascript/interface.js";
 
 function calculateVeryHardStuff() {
     const input = document.getElementById("buttonInput");
@@ -21,3 +20,5 @@ function calculateVeryHardStuff() {
             }
         )
 }
+
+document.getElementById("calculateButton").addEventListener("click", calculateVeryHardStuff);

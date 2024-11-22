@@ -13,6 +13,7 @@ include("Utilities.jl")
 include("JSCommands/HandleCommands.jl")
 include("../internal/javascript/Dummy.jl")
 include("EditCells.jl")
+include("fileserver/FileServer.jl")
 
 const plutoboard_filepath = dirname(dirname(pathof(PlutoBoard)))
 const config = TOML.parsefile(plutoboard_filepath * "/config/config.toml")
@@ -25,6 +26,8 @@ hide_notebook::Bool = true
 
 scripts_urls::Array{String} = []
 stylesheet_urls::Array{String} = []
+
+global_fileserver = nothing
 
 end
 
