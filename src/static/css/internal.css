@@ -1,12 +1,5 @@
 /* PlutoBoard.jl internal stylesheet */
 
-
-iframe {
-    overflow-y: visible;
-    height: 100%;
-    width: 100%;
-}
-
 pluto-editor {
     display: none;
 }
@@ -24,10 +17,6 @@ pluto-input {
 }
 
 pluto-shoulder {
-    display: none;
-}
-
-pluto-trafficlight {
     display: none;
 }
 

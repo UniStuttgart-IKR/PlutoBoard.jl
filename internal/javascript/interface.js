@@ -38,7 +38,7 @@ function waitForOpenConnection(socket) {
     });
 }
 
-async function callJuliaFunction(func_name, { args = [], kwargs = {}, response_callback = () => { } } = {}) {
+async function callJuliaFunction(func_name, { args = [], kwargs = {}, response_callback = () => { }, internal = false } = {}) {
     const socket = setupWebsocket();
     await waitForOpenConnection(socket);
 
@@ -48,7 +48,8 @@ async function callJuliaFunction(func_name, { args = [], kwargs = {}, response_c
         "type": "julia_function_call",
         "function": func_name,
         "args": args,
-        "kwargs": kwargs
+        "kwargs": kwargs,
+        "internal": internal
     }
     socket.send(JSON.stringify(cmd));
 

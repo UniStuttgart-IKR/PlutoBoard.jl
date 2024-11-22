@@ -1,3 +1,13 @@
 #export {
     display: none !important;
 }
+
+iframe {
+    overflow-y: visible;
+    height: 100%;
+    width: 100%;
+}
+
+pluto-trafficlight {
+    display: none;
+}
