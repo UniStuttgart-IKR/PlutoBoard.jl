@@ -66,6 +66,12 @@ function load_js()::HypertextLiteral.Result
 	<!-- html -->
 	<script>
 
+	//check if in iframe 
+	if (window.location !== window.parent.location) {
+		//exit this script 
+		return
+	}
+
 	const head = document.getElementsByTagName('head')[0]
 
 	const script_locations = [

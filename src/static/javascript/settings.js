@@ -60,7 +60,6 @@ export function updateCellIDsTable() {
             const rows = [];
             r.forEach(cell_id => {
                 const index = r.indexOf(cell_id) + 1;
-                console.log(cell_id);
                 rows.push(`
                         <tr
                         class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
@@ -118,7 +117,6 @@ export function removeCell(cell_id) {
 export function addCell() {
     callJuliaFunction("add_cell", { internal: true }).then(
         r => {
-            placeAlliFrames();
             updateCellIDsTable();
             sendToast(`Cell added.`, 'success');
         }

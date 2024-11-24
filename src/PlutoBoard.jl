@@ -28,6 +28,7 @@ scripts_urls::Array{String} = []
 stylesheet_urls::Array{String} = []
 
 global_fileserver = nothing
+const SERVE_DIR = joinpath(pwd(), "static")
 
 end
 

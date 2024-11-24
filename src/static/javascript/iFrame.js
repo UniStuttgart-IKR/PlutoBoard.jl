@@ -1,6 +1,7 @@
+import { info } from "./logger.js";
+
 export function placeIframe(targetCellID, destinationDiv) {
     const iFrameID = `cell-iframe-${targetCellID}`;
-    const plutoBoardExportDivID = 'main-export';
 
     let listener = setInterval(function () {
         if (destinationDiv !== null) {
@@ -23,124 +24,30 @@ export function placeIframe(targetCellID, destinationDiv) {
             if (window.location === window.parent.location) {
                 div.appendChild(iframe);
 
-
                 //wait until iframe is loaded
                 let interval = setInterval(function () {
                     if (document.querySelector(`#${iFrameID}`).contentDocument) {
                         clearInterval(interval);
-                        console.log('iframe loaded');
 
                         let interval2 = setInterval(function () {
-                            if (document.querySelector(`#${iFrameID}`).contentDocument.querySelector(`#${plutoBoardExportDivID}`)) {
+                            if (document.querySelector(`#${iFrameID}`).contentDocument.getElementById(targetCellID)) {
                                 clearInterval(interval2);
-                                console.log('main-export loaded');
+                                info(`IFrame with cellid ${targetCellID} loaded`);
 
-                                //find all style tags in iframe and remove them
                                 let iframeDoc = document.querySelector(`#${iFrameID}`).contentDocument;
-                                let styles = iframeDoc.querySelectorAll('style');
-                                //remove all styles without class attribute
-                                styles.forEach(style => {
-                                    // if (!style.hasAttribute('class')) {
-                                    //     style.remove();
-                                    // }
-                                    //if stlye.innerHTML includes 'PlutoBoard.jl internal stylesheet' remove it
-                                    if (style.innerHTML.includes('PlutoBoard.jl internal stylesheet')) {
-                                        style.remove();
-                                    }
 
-                                });
-
-                                //get all pluto-cell elements and hide them
-                                let cells = iframeDoc.querySelectorAll('pluto-cell');
-                                cells.forEach(cell => {
-                                    //check if id is equal to targetCellID
-                                    if (cell.id !== targetCellID) {
-                                        cell.style.display = 'none';
-                                    } else {
-                                        cell.style.margin = '0.8vw';
-                                        cell.style.padding = '2vw';
-                                    }
-                                });
-
-                                //set body background to transparent
-                                let body = iframeDoc.querySelector('body');
-                                body.style.backgroundColor = 'transparent';
-
-                                //hide header
-                                let header = iframeDoc.querySelector('header');
-                                header.style.display = 'none';
-
-                                //hie footer
-                                let footer = iframeDoc.querySelector('footer');
-                                footer.style.display = 'none';
-
-                                //hide #main-export
-                                let mainExport = iframeDoc.querySelector(`#${plutoBoardExportDivID}`);
-                                mainExport.style.display = 'none';
-
-                                //hide .not-iframe
-                                let notIframe = iframeDoc.querySelectorAll('.not-iframe');
-                                notIframe.forEach(element => {
-                                    element.style.display = 'none';
-                                });
-
-                                //hide #helpbox-wrapper
-                                let helpbox = iframeDoc.querySelector('#helpbox-wrapper');
-                                helpbox.style.display = 'none';
-
-                                //hide every child of body except body>div>pluto-editor>main>pluto-notebook
-
-                                //set main margin & padding to 0
-                                let main = iframeDoc.querySelector('main');
-                                main.style.margin = '0';
-                                main.style.padding = '0';
-                                main.style.display = 'contents';
-
-                                //hide preamble
-                                let preamble = iframeDoc.querySelector('preamble');
-                                preamble.style.display = 'none';
-
-                                //hide all add_cell buttons
-                                let addCellButtons = iframeDoc.querySelectorAll('.add_cell');
-                                addCellButtons.forEach(button => {
-                                    button.style.display = 'none';
-                                });
-
-                                //hide .cm-gutters
-                                let cmGutters = iframeDoc.querySelectorAll('.cm-gutters');
-                                cmGutters.forEach(gutter => {
-                                    gutter.style.display = 'none';
-                                });
-
-                                //hide all pluto-shoulders
-                                let shoulders = iframeDoc.querySelectorAll('pluto-shoulder');
-                                shoulders.forEach(shoulder => {
-                                    shoulder.style.display = 'none';
-                                });
-
-                                //get pluto-editor parent
-                                let editor = iframeDoc.querySelector('pluto-editor');
-                                let editorParent = editor.parentElement;
-                                editorParent.style.minHeight = '0';
-
-                                //set body min height to 0
-                                body.style.minHeight = '0';
-
-                                //hide loading-bar
-                                let loadingBar = iframeDoc.querySelector('loading-bar');
-                                loadingBar.style.display = 'none';
+                                const cell = iframeDoc.getElementById(targetCellID);
+                                cell.style.margin = '0.8vw';
+                                cell.style.padding = '2vw';
+                                cell.style.display = 'block';
 
 
-                                //pluto-notebook border radius
-                                let notebook = iframeDoc.querySelector('pluto-notebook');
-                                notebook.style.borderRadius = '4vw';
-                                notebook.style.width = '100vw';
-                                notebook.style.height = '100vh';
-
-                                //hide pluto-trafficlight
-                                let trafficLight = iframeDoc.querySelector('pluto-trafficlight');
-                                trafficLight.style.display = 'none';
-
+                                //get iFrame.css and add it to head in iFrame
+                                let css = document.createElement('link');
+                                css.rel = 'stylesheet';
+                                css.type = 'text/css';
+                                css.href = 'http://localhost:8085/internal/static/css/iFrame.css';
+                                iframeDoc.head.appendChild(css);
                             }
                         }, 100);
                     }

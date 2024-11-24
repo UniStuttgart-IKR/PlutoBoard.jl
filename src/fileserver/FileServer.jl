@@ -1,5 +1,3 @@
-SERVE_DIR = joinpath(pwd(), "static")
-
 # Utility function to handle file serving
 function serve_file(req::HTTP.Request)
 	# Extract the requested path

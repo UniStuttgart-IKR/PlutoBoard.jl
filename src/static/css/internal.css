@@ -1,30 +1,34 @@
 /* PlutoBoard.jl internal stylesheet */
 
-pluto-editor {
-    display: none;
-}
-
-body {
-    overflow: hidden;
-}
-
-pluto-input {
-    display: none;
-}
-
-.add_cell {
-    display: none;
-}
-
-pluto-shoulder {
-    display: none;
-}
-
-pluto-runarea {
-    display: none;
-}
 
 
-.btn-run {
-    width: 100%;
+:root:not(.in-iframe) {
+    pluto-editor {
+        display: none;
+    }
+    
+    /* body {
+        overflow: hidden;
+    } */
+    
+    pluto-input {
+        display: none;
+    }
+    
+    .add_cell {
+        display: none;
+    }
+    
+    pluto-shoulder {
+        display: none;
+    }
+    
+    pluto-runarea {
+        display: none;
+    }
+    
+    
+    .btn-run {
+        width: 100%;
+    }
 }

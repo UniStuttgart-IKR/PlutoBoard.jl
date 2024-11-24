@@ -1,23 +1,23 @@
-// DO NOT LOAD IN IFRAME!
+import { error, info } from "./logger.js";
 
 function setupWebsocket() {
     let socket;
     while (socket === undefined) {
-        console.log('Waiting for WebSocket to be defined...');
+        info('Waiting for WebSocket to be defined');
         new Promise(resolve => setTimeout(resolve, 100));
         socket = new WebSocket('ws://localhost:8080');
     }
 
     socket.addEventListener('open', function (event) {
-        console.log('WebSocket is open now.');
+        info('WebSocket is open now.');
     });
 
     socket.addEventListener('close', function (event) {
-        console.log('WebSocket is closed now.');
+        info('WebSocket is closed now.');
     });
 
     socket.addEventListener('error', function (event) {
-        console.error('WebSocket error observed:', event);
+        error('WebSocket error observed:', event);
     });
     return socket;
 }
@@ -42,7 +42,7 @@ export async function callJuliaFunction(func_name, { args = [], kwargs = {}, res
     const socket = setupWebsocket();
     await waitForOpenConnection(socket);
 
-    console.log('Calling Julia function:', func_name, 'with args:', args, 'and kwargs:', kwargs, 'and response callback:', response_callback);
+    info(`Calling Julia function ${func_name} with args: ${args}, kwargs: ${JSON.stringify(kwargs)}, internal: ${internal}`);
 
     const cmd = {
         "type": "julia_function_call",
@@ -55,8 +55,6 @@ export async function callJuliaFunction(func_name, { args = [], kwargs = {}, res
 
     return new Promise((resolve, reject) => {
         socket.addEventListener('message', (event) => {
-
-
             if (JSON.parse(event.data).type === 'return') {
                 socket.close();
                 resolve(JSON.parse(event.data).return);

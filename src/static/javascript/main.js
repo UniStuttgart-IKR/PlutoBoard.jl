@@ -26,3 +26,8 @@ window.findCell = findCell;
 
 //add updateAllCells function to the window object
 window.updateAllCells = updateAllCells;
+
+
+
+
+
