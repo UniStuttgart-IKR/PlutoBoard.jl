@@ -1,0 +1,63 @@
+body {
+    background-color: transparent;
+    min-height: 0;
+}
+
+pluto-cell {
+    display: none;
+}
+
+header,
+footer {
+    display: none;
+}
+
+.not-iframe {
+    display: none;
+}
+
+#helpbox-wrapper {
+    display: none;
+}
+
+main {
+    margin: 0;
+    padding: 0;
+    display: contents;
+}
+
+preamble {
+    display: none !important;
+}
+
+.add_cell {
+    display: none;
+}
+
+.cm-gutters {
+    display: none;
+}
+
+pluto-shoulder {
+    display: none;
+}
+
+pluto-editor {
+    parent {
+        min-height: 0;
+    }
+}
+
+loading-bar {
+    display: none;
+}
+
+pluto-notebook {
+    border-radius: 4vw;
+    width: 100vw;
+    height: 100vh;
+}
+
+pluto-trafficlight {
+    display: none;
+}
