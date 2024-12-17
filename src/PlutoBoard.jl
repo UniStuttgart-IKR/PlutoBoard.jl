@@ -11,7 +11,7 @@ include("InterfaceFunctions.jl")
 include("LoadHTML.jl")
 include("Utilities.jl")
 include("JSCommands/HandleCommands.jl")
-include("../internal/javascript/Dummy.jl")
+include("static/javascript/JSDocs.jl")
 include("EditCells.jl")
 include("fileserver/FileServer.jl")
 
@@ -27,8 +27,10 @@ hide_notebook::Bool = true
 scripts_urls::Array{String} = []
 stylesheet_urls::Array{String} = []
 
-global_fileserver = nothing
+fileserver = nothing
 const SERVE_DIR = joinpath(pwd(), "static")
+
+websocket = nothing
 
 end
 

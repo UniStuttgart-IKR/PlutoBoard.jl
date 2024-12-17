@@ -1,4 +1,7 @@
+import { info } from "/internal/static/javascript/logger.js";
 import { callJuliaFunction } from "/internal/static/javascript/interface.js";
+
+info("Hello from main.js");
 
 function calculateVeryHardStuff() {
     const input = document.getElementById("buttonInput");

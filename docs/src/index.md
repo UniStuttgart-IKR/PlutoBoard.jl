@@ -19,11 +19,11 @@ YOUR_PACKAGE_NAME$> julia --project -e 'using Pluto; Pluto.run(notebook="PlutoBo
 
 ## Write your own code
 There is some hierarchy:
-- `main` in `src/Main.jl` gets called in the beginning, so use this as julia entry point
-- functions that should be callable from js need to go into `src/Functions.jl`
-- all javascript files in `static/javascript/` are getting executed, though `static/javascript/javascript.js` is the last one, so use this as js entry point
+- `main` in `src/Main.jl` gets called in the beginning, use this as Julia entry point
+- `static/javascript/main.js` is getting executed in the beginning too, use this as JS entrypoint
+- functions that should be callable from js should to go into `src/Functions.jl`. They can be anywhere else too, but make sure they are included in `src/YOUR_PACKAGE_NAME.jl`
 
-There is a simple example in `src/Functions.jl`, `src/static/index.html` and `src/static/javascript/javascript.js` about calling a julia function from javascript with callbacks.
+There is a simple example in `src/Functions.jl`, `static/index.html` and `static/javascript/main.js` about calling a Julia function from JS with callbacks.
 
 ### Simple calling of a Julia function within HTML using a button and an input
 
@@ -48,14 +48,17 @@ Now we create an input with `id=buttonInput` for our number in `static/index.htm
 ```
 as well as a button
 ```HTML
-<button class="btn btn-light" id="calculateButton" onclick="calculateVeryHardStuff()">Calculate</button>
+<button class="btn btn-light" id="calculateButton">Calculate</button>
 ```
 and a div to show our output
 ```HTML
 <div class="text-white" id="buttonOutput">Output: </div>
 ```
-Since we used `calculateVeryHardStuff` in our button, we need to define it aswell. We do this in `static/javascript/javascript.js`
+Now we need to define a function that does something when we click the button. We do this in `static/javascript/main.js`
 ```JavaScript
+//Import callJuliaFunction. Internal JS files are on /internal/static/javascript
+import { callJuliaFunction } from "/internal/static/javascript/interface.js";
+
 function calculateVeryHardStuff() {
     // get our input
     const input = document.getElementById("buttonInput");
@@ -87,8 +90,18 @@ function calculateVeryHardStuff() {
         }
     )
 }
+
+//add our function as click event to the button
+document.getElementById("calculateButton").addEventListener("click", calculateVeryHardStuff);
 ```
 And that's it, we have created a simple application using HTML and JavaScript as input and Julia for calculating!
+
+Importing other JS files is easily done using ES6 Modules:
+```javascript
+//imports function from static/javascript/folder/file.js
+import { function } from "./folder/file.js";
+```
+Don't forget to export functions you want to import elsewhere.
 
 # PlutoBoard.jl Documentation
 
@@ -107,22 +120,15 @@ callJuliaFunction()
 
 ## Internal functions
 
-### Julia internal functions
 ```@docs
-load_scripts_and_links()
-load_html()
-load_html_string_to_body()
+add_cell(;ws)
+remove_cell(uuid::String; ws)
+get_cells(;ws)
+
+get_html()
 load_js()
 open_file(path::String)
 copy_with_delete(from::String, to::String)
 setup()
 get_package_name()
-```
-
-### JavaScript internal functions
-```@docs
-placeIframe()
-updateAllCells()
-updateCell()
-insertHTMLToBody()
 ```

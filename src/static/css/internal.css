@@ -1,7 +1,5 @@
 /* PlutoBoard.jl internal stylesheet */
 
-
-
 :root:not(.in-iframe) {
     pluto-editor {
         display: none;

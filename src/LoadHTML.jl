@@ -1,4 +1,4 @@
-export set_fullscreen, load_scripts_and_links, load_html, load_html_string_to_body, load_js
+export set_fullscreen, load_scripts_and_links, load_html, get_html, load_js
 
 function set_fullscreen()
 	if PlutoBoard.fullscreen
@@ -46,9 +46,9 @@ end
 
 
 """
-	load_html_string_to_body() -> HypertextLiteral.Result
+	get_html() -> String
 
-Returns a HypertextLiteral.Result object to call a javascript function to insert the html and css to the body.
+Returns contents of `index.html` as `String`
 """
 function get_html()
 	open(html_path) do file
@@ -59,7 +59,7 @@ end
 """
 	load_js() -> HypertextLiteral.Result
 
-Returns a HypertextLiteral.Result object to load all javascript files.
+Returns a HypertextLiteral.Result object to load entry js files as modules and css scripts
 """
 function load_js()::HypertextLiteral.Result
 	return @htl("""

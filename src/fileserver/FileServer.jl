@@ -1,6 +1,15 @@
-# Utility function to handle file serving
+function run_fileserver()
+	global fileserver
+	try
+		schedule(fileserver, InterruptException(), error = true)
+	catch e
+		@info e
+	end
+
+	fileserver = @async PlutoBoard.start_server()
+end
+
 function serve_file(req::HTTP.Request)
-	# Extract the requested path
 	base_path = String(HTTP.unescapeuri(req.target))[2:end]
 	if split(base_path, "/")[1] == "internal"
 		base_path = joinpath(@__DIR__, "..", split(base_path, "/")[2:end]...)
@@ -28,17 +37,15 @@ function serve_file(req::HTTP.Request)
 	end
 end
 
-# Start the file server
-function start_server(port::Int = 8080)
-	@info "Starting server on port $port to server $SERVE_DIR"
-	HTTP.serve("127.0.0.1", port) do req
-		# try
-		#     serve_file(req)
-		# catch e
-		#     @error "Error serving request: $e"
-		#     return HTTP.Response(500, "Internal Server Error")
-		# end
-		serve_file(req)
+function start_server()
+	@info "Starting server on port to server $SERVE_DIR"
+	HTTP.serve(config["fileserver"]["url"], config["fileserver"]["port"]) do req
+		try
+			serve_file(req)
+		catch e
+			@error "Error serving request: $e"
+			return HTTP.Response(500, "Internal Server Error")
+		end
 	end
 end
 
