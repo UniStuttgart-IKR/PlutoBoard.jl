@@ -32,9 +32,6 @@ end
 # ╔═╡ c8f44fcc-b2b4-49e6-8c5c-93ee51e42d1a
 PlutoBoard.load_scripts_and_links()
 
-# ╔═╡ 191eb887-6681-4f75-8192-240ca3fc5da2
-PlutoBoard.load_html_string_to_body()
-
 # ╔═╡ 7d9362b1-c508-4cad-add2-4f62a6ad8409
 PlutoBoard.load_js()
 
@@ -78,13 +75,18 @@ function handle_julia_function_call(ws, parsed)
 
 end
 
+# ╔═╡ 231a2a26-b3ec-4ad0-8335-db43a53f1a86
+PlutoBoard.run_fileserver()
+
 # ╔═╡ 147ed5fe-0133-4eef-96f2-afafe9385f27
 begin
-	if user_package.global_websocket !== nothing
-		schedule(user_package.global_websocket, InterruptException(), error = true)
+	try
+		schedule(PlutoBoard.websocket, InterruptException(), error = true)
+	catch e
+		@info e
 	end
-
-	user_package.global_websocket = @async WebSockets.listen("0.0.0.0", 8080) do ws
+	
+	PlutoBoard.websocket = @async WebSockets.listen(PlutoBoard.config["websocket"]["url"], PlutoBoard.config["websocket"]["port"]) do ws
 		for msg in ws
 			parsed = PlutoBoard.parse_to_symbol(PlutoBoard.JSON.parse(msg))
 			type = parsed[:type]
@@ -96,10 +98,10 @@ begin
 	end
 end
 
-# ╔═╡ ffa65a89-13b7-41b1-b1d5-95605c5ae39d
-x = 1
+# ╔═╡ 2eac3d05-ae01-40c8-abfa-d55349f043f3
+x=1
 
-# ╔═╡ bbcda6f9-7ddf-4e5c-a43a-3804a9e51866
+# ╔═╡ 2e287869-a591-45ba-ac12-28c24fd9059a
 x
 
 # ╔═╡ Cell order:
@@ -110,9 +112,9 @@ x
 # ╠═96ff4362-fda0-4cae-9786-2dc29626479c
 # ╠═64f17c2b-5f54-4df5-8d7d-d57f3b314b5b
 # ╠═c8f44fcc-b2b4-49e6-8c5c-93ee51e42d1a
-# ╠═191eb887-6681-4f75-8192-240ca3fc5da2
 # ╠═7d9362b1-c508-4cad-add2-4f62a6ad8409
 # ╠═a12112c1-58e7-473b-a8c2-d825d0f416d9
+# ╠═231a2a26-b3ec-4ad0-8335-db43a53f1a86
 # ╠═147ed5fe-0133-4eef-96f2-afafe9385f27
-# ╠═ffa65a89-13b7-41b1-b1d5-95605c5ae39d
-# ╠═bbcda6f9-7ddf-4e5c-a43a-3804a9e51866
+# ╠═2eac3d05-ae01-40c8-abfa-d55349f043f3
+# ╠═2e287869-a591-45ba-ac12-28c24fd9059a

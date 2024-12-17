@@ -1,3 +1,5 @@
+export add_cell, remove_cell, get_cells
+
 const CELL_HEAD = "# ╔═╡ ";
 const ORDER_TITLE = "# ╔═╡ Cell order:";
 const ORDER_HEAD = "# " * "..";
@@ -5,6 +7,15 @@ const SHOWN_HEAD = "# ╠═";
 const HIDDEN_HEAD = "# ╟─";
 const LAST_CELL = SHOWN_HEAD * "147ed5fe-0133-4eef-96f2-afafe9385f27";
 
+
+"""
+	add_cell(
+		;
+		ws::WebSocket
+	) -> nothing
+
+Adds a cell at the bottom of the notebook
+"""
 function add_cell(; ws)
 	uuid = UUIDs.uuid4()
 
@@ -28,6 +39,15 @@ function add_cell(; ws)
 	end
 end
 
+"""
+	remove_cell(
+		uuid::String
+		;
+		ws::WebSocket
+	) -> nothing
+
+Removes cell with uuid
+"""
 function remove_cell(uuid::String; ws)
 	file_content = ""
 	open("PlutoBoardNotebook.jl", "r") do file
@@ -51,6 +71,14 @@ function remove_cell(uuid::String; ws)
 	end
 end
 
+"""
+	get_cells(
+		;
+		ws::WebSocket
+	) -> Array{String}
+
+Returns an array of all cells uuids
+"""
 function get_cells(; ws)
 	file_content = ""
 	open("PlutoBoardNotebook.jl", "r") do file
