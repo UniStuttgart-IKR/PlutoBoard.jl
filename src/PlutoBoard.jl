@@ -14,6 +14,7 @@ include("JSCommands/HandleCommands.jl")
 include("static/javascript/JSDocs.jl")
 include("EditCells.jl")
 include("fileserver/FileServer.jl")
+include("plugins/LoadPlugin.jl")
 
 const plutoboard_filepath = dirname(dirname(pathof(PlutoBoard)))
 const config = TOML.parsefile(plutoboard_filepath * "/config/config.toml")
@@ -31,6 +32,9 @@ fileserver = nothing
 const SERVE_DIR = joinpath(pwd(), "static")
 
 websocket = nothing
+
+# Plugins
+js_files_to_load::Array{String} = []
 
 end
 

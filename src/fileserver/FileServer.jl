@@ -17,6 +17,10 @@ function serve_file(req::HTTP.Request)
 
 	requested_path = joinpath(SERVE_DIR, base_path)
 
+	if split(base_path, "/")[1] == "absolute"
+		requested_path = split(base_path, "/"; limit = 2)[2]
+	end
+
 	@info "Requested file: $requested_path"
 
 	headers = Dict(
@@ -40,16 +44,16 @@ end
 function start_server()
 	@info "Starting server on port to server $SERVE_DIR"
 	HTTP.serve(config["fileserver"]["url"], config["fileserver"]["port"]) do req
-		try
+		# try
 			serve_file(req)
-		catch e
-			@error "Error serving request: $e"
-			return HTTP.Response(500, "Internal Server Error")
-		end
+		# catch e
+		# 	@error "Error serving request: $e"
+		# 	return HTTP.Response(500, "Internal Server Error")
+		# end
 	end
 end
 
-function get_mime_type(file::String)
+function get_mime_type(file)
 	if endswith(file, ".js")
 		return "application/javascript"
 	elseif endswith(file, ".css")

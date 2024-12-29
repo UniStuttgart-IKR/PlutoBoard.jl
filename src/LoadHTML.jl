@@ -62,6 +62,15 @@ end
 Returns a HypertextLiteral.Result object to load entry js files as modules and css scripts
 """
 function load_js()::HypertextLiteral.Result
+	plugin_js_files_contents = []
+	for f in js_files_to_load
+		open(f) do file
+			push!(plugin_js_files_contents, read(file, String))
+		end
+	end
+
+	println(js_files_to_load)
+
 	return @htl("""
 	<!-- html -->
 	<script>
@@ -110,6 +119,15 @@ function load_js()::HypertextLiteral.Result
 			script.src = url + "javascript/main.js"
 			script.type = "module"
 			head.appendChild(script)
+
+
+			//add plugin scripts
+			for (let i = 0; i < $(js_files_to_load).length; i++) {
+				const script = document.createElement('script')
+				script.type = "module"
+				script.src = url + "absolute/" + $(js_files_to_load)[i]
+				head.appendChild(script)
+			}
 		}
 	}, 100)
 
