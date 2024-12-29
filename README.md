@@ -1,7 +1,7 @@
 # PlutoBoard.jl
 [![](https://img.shields.io/badge/docs-dev-blue.svg)](https://UniStuttgart-IKR.github.io/PlutoBoard.jl/dev)
 
-PlutBoard.jl is still in an early state.
+PlutoBoard.jl is still in an early state.
 
 # Setup
 Generate your package
