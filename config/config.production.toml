@@ -1,0 +1,10 @@
+[websocket]
+url = "127.0.0.1"
+port = 8080
+
+[fileserver]
+url = "127.0.0.1"
+port = 8085
+
+[fileserver_api]
+url = "http://localhost:8085/"

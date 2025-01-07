@@ -1,5 +1,14 @@
 export initialize, javascript
 
+function run(debug::Bool=false)
+    if debug == false
+        Pluto.run(notebook="PlutoBoardNotebook.jl")
+    else
+        Pluto.run(notebook="PlutoBoardNotebook.jl", auto_reload_from_file=true)
+    end
+end
+
+
 """
 	initiliaize(
 		html_path::String,

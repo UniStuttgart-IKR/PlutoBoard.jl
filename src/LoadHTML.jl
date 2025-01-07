@@ -69,8 +69,6 @@ function load_js()::HypertextLiteral.Result
 		end
 	end
 
-	println(js_files_to_load)
-
 	return @htl("""
 	<!-- html -->
 	<script>

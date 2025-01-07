@@ -6,6 +6,7 @@ using TOML
 using HTTP
 using HTTP.WebSockets
 using UUIDs
+using Pluto
 
 include("InterfaceFunctions.jl")
 include("LoadHTML.jl")
@@ -17,11 +18,11 @@ include("fileserver/FileServer.jl")
 include("plugins/LoadPlugin.jl")
 
 const plutoboard_filepath = dirname(dirname(pathof(PlutoBoard)))
-const config = TOML.parsefile(plutoboard_filepath * "/config/config.toml")
+const config = TOML.parsefile(plutoboard_filepath * "/config/config.dev.toml")
 
 
-html_path::Union{String, Nothing} = nothing
-css_path::Union{String, Nothing} = nothing
+html_path::Union{String,Nothing} = nothing
+css_path::Union{String,Nothing} = nothing
 fullscreen::Bool = true
 hide_notebook::Bool = true
 
