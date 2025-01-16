@@ -15,11 +15,11 @@ function load_scripts_and_links()
 	scripts_and_links_html = ""
 
 	for url in PlutoBoard.scripts_urls
-		scripts_and_links_html *= """<script src="$url"/>"""
+		scripts_and_links_html *= """<script src="$url"></script>"""
 	end
 
 	for url in PlutoBoard.stylesheet_urls
-		scripts_and_links_html *= """<link href="$url" rel="stylesheet"/>"""
+		scripts_and_links_html *= """<link href="$url" rel="stylesheet"></link>"""
 	end
 
 	return HTML(scripts_and_links_html)
