@@ -3,7 +3,7 @@ function parse_to_symbol(d)
 end
 
 function send_to_ws(ws, message)
-	send(ws, JSON.json(Dict("type" => "response", "response" => message)))
+	Sockets.send(ws, JSON.json(Dict("type" => "response", "response" => message)))
 end
 
 
