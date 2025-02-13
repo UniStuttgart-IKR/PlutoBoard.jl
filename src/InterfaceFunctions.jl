@@ -1,5 +1,11 @@
-export initialize, javascript
+export run, initialize, javascript
 
+"""
+    run(debug::Bool=false)
+
+Runs the Pluto notebook with the PlutoBoard notebook.
+If `debug` is true, the notebook will reload when the file changes.
+"""
 function run(debug::Bool=false)
     if debug == false
         Pluto.run(notebook="PlutoBoardNotebook.jl")
@@ -11,15 +17,14 @@ end
 """
 	initiliaize(
 		html_path::String,
-		css_path::String
 		;
-		fullscreen::Bool = true,
 		hide_notebook::Bool = true,
 		scripts::Array{String} = [],
 		links::Array{String} = [],
 	) -> nothing
 
 Initializes the PlutoBoard module with parameters.
+`scripts` and `links` are urls to scripts and stylesheets.
 """
 function initialize(html_path::String; hide_notebook::Bool=true, scripts=[], stylesheets=[])
     PlutoBoard.html_path = html_path

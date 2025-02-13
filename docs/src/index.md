@@ -94,6 +94,17 @@ function calculateVeryHardStuff() {
 //add our function as click event to the button
 document.getElementById("calculateButton").addEventListener("click", calculateVeryHardStuff);
 ```
+!!! info
+    Using `await` Syntax also works:
+    ```JavaScript
+    let value = await callJuliaFunction("get_cube", {args: [10]});
+    console.log(value);
+    ```
+
+    ```
+    > 1000
+    ```
+
 And that's it, we have created a simple application using HTML and JavaScript as input and Julia for calculating!
 
 Importing other JS files is easily done using ES6 Modules:
@@ -101,34 +112,6 @@ Importing other JS files is easily done using ES6 Modules:
 //imports function from static/javascript/folder/file.js
 import { function } from "./folder/file.js";
 ```
-Don't forget to export functions you want to import elsewhere.
 
-# PlutoBoard.jl Documentation
-
-## PlutoBoard interface
-
-### Julia interface
-```@docs
-initialize(_html_path::String, _css_path::String; fullscreen::Bool = false, bootstrap::Bool = false, hide_notebook::Bool = true)
-```
-
-### JavaScript interface
-These functions can be called in the browser and are written in **JavaScript**.
-```@docs
-callJuliaFunction()
-```
-
-## Internal functions
-
-```@docs
-add_cell(;ws)
-remove_cell(uuid::String; ws)
-get_cells(;ws)
-
-get_html()
-load_js()
-open_file(path::String)
-copy_with_delete(from::String, to::String)
-setup()
-get_package_name()
-```
+!!! info
+    Don't forget to export functions you want to import elsewhere.

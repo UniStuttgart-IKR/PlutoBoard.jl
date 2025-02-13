@@ -1,3 +1,10 @@
+export run_fileserver, start_server, get_mime_type, serve_file
+
+""" 
+    run_fileserver()
+
+Starts the file server with restarting if needed.
+"""
 function run_fileserver()
     global fileserver
     try
@@ -9,6 +16,11 @@ function run_fileserver()
     fileserver = @async PlutoBoard.start_server()
 end
 
+"""
+    serve_file(req::HTTP.Request)
+
+Serves the requested file from the `SERVE_DIR` directory.
+"""
 function serve_file(req::HTTP.Request)
     base_path = String(HTTP.unescapeuri(req.target))[2:end]
     if split(base_path, "/")[1] == "internal"
@@ -41,6 +53,11 @@ function serve_file(req::HTTP.Request)
     end
 end
 
+"""
+    start_server()
+
+Starts the server on the port specified in the `config.toml` file.
+"""
 function start_server()
     @info "Starting server on port to server $SERVE_DIR"
     HTTP.serve(config["fileserver"]["url"], config["fileserver"]["port"]) do req
@@ -53,6 +70,11 @@ function start_server()
     end
 end
 
+"""
+    get_mime_type(file)
+
+Returns the MIME type of the file.
+"""
 function get_mime_type(file)
     if endswith(file, ".js")
         return "application/javascript"

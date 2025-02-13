@@ -1,9 +1,9 @@
-export load_scripts_and_links, load_html, get_html, load_js
+export load_scripts_and_links, get_css_files, load_js
 
 """
 	load_scripts_and_links() -> HypertextLiteral.Result
 
-Returns a HypertextLiteral.Result object with scritps and links to load.
+Returns a HypertextLiteral.Result object with scritps and links to load defined by the developer in [`initialize`](@ref)
 """
 function load_scripts_and_links()
     scripts_and_links_html = ""
@@ -20,24 +20,12 @@ function load_scripts_and_links()
 end
 
 
-"""
-	get_html() -> String
-
-Returns contents of `index.html` as `String`
-"""
-function get_html()
-    open(html_path) do file
-        return read(file, String)
-    end
-end
-
 
 """
     get_css_files() -> Array{String}
 
-Returns all css files in developer package
+Returns all css files in `static/css` folder of developer package.
 """
-
 function get_css_files()
     css_files = []
     for file in readdir("static/css")
@@ -50,7 +38,7 @@ end
 """
 	load_js() -> HypertextLiteral.Result
 
-Returns a HypertextLiteral.Result object to load entry js files as modules and css scripts
+Returns a HypertextLiteral.Result object to load entry js files as modules and css stylesheets.
 """
 function load_js()::HypertextLiteral.Result
     plugin_js_files_contents = []

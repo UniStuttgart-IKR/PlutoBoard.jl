@@ -15,6 +15,7 @@ include("jscommands/HandleCommands.jl")
 include("static/javascript/JSDocs.jl")
 include("EditCells.jl")
 include("fileserver/FileServer.jl")
+include("websocket/WebSocket.jl")
 include("plugins/LoadPlugin.jl")
 
 
@@ -30,9 +31,9 @@ scripts_urls::Array{String} = []
 stylesheet_urls::Array{String} = []
 
 fileserver = nothing
-const SERVE_DIR = joinpath(pwd(), "static")
-
 websocket = nothing
+
+const SERVE_DIR = joinpath(pwd(), "static")
 
 # Plugins
 js_files_to_load::Array{String} = []
