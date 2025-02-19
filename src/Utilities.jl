@@ -23,11 +23,11 @@ end
 		to::String
 	)::nothing
 
-Copies a file from one location to another and deletes the original file. Sets the permissions of the copied file to 644.
+Copies a file from one location to another and deletes the original file. Sets the permissions of the copied file to 666.
 """
 function copy_with_delete(from::String, to::String)
-    cp(from, to, force=true)
-    chmod(to, 0o666)
+    cp(from, to, force=true)  
+    chmod(to, 0o766)
     @info "Copied $from to $to"
 end
 
