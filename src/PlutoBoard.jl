@@ -18,9 +18,13 @@ include("fileserver/FileServer.jl")
 include("websocket/WebSocket.jl")
 include("plugins/LoadPlugin.jl")
 
+function __init__()
+  global SERVE_DIR = joinpath(pwd(), "static")
+end
 
-const plutoboard_filepath = dirname(dirname(pathof(PlutoBoard)))
-const config = TOML.parsefile(plutoboard_filepath * "/config/config.toml")
+
+plutoboard_filepath = dirname(dirname(pathof(PlutoBoard)))
+config = TOML.parsefile(plutoboard_filepath * "/config/config.toml")
 
 
 html_path::Union{String,Nothing} = nothing
@@ -32,8 +36,6 @@ stylesheet_urls::Array{String} = []
 
 fileserver = nothing
 websocket = nothing
-
-const SERVE_DIR = joinpath(pwd(), "static")
 
 # Plugins
 js_files_to_load::Array{String} = []
