@@ -14,16 +14,16 @@ YOUR_PACKAGE_NAME$> julia --project -e 'using Pkg; Pkg.add(url="https://github.c
 ```
 Run the notebook
 ```bash
-YOUR_PACKAGE_NAME$> julia --project -e 'using Pluto; Pluto.run(notebook="PlutoBoardNotebook.jl")'
+YOUR_PACKAGE_NAME$> julia --project -e 'using PlutoBoard; PlutoBoard.run(debug=True)'
 ```
 
 # Write your own code
 There is some hierarchy:
 - `main` in `src/Main.jl` gets called in the beginning, so use this as julia entry point
-- functions that should be callable from js need to go into `src/Functions.jl`
+- functions that should be callable from js need to be in the package, i.e., need to be included in `src/PlutoBoard.jl` (`include('path/to/some/file.jl')`)
 - all javascript files in `static/javascript/` are getting executed, though `static/javascript/javascript.js` is the last one, so use this as js entry point
 
-There is a simple example in `src/Functions.jl`, `src/static/index.html` and `src/static/javascript/javascript.js` about calling a julia function from javascript with callbacks.
+There is a simple example in `src/PlutoBoard.jl`, `src/static/index.html` and `src/static/javascript/javascript.js` about calling a julia function from javascript with callbacks.
 
 Screenshot of a simple example:
 ![image](https://github.com/user-attachments/assets/af99abeb-f613-4b8f-9ae2-c25fb15107bd)

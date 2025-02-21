@@ -1,5 +1,5 @@
 ### A Pluto.jl notebook ###
-# v0.20.3
+# v0.20.4
 
 using Markdown
 using InteractiveUtils
@@ -10,14 +10,8 @@ using Pkg
 # ╔═╡ 0e8625f9-e2cb-4660-b355-cc62d35b252d
 Pkg.activate(".")
 
-# ╔═╡ caff9170-f1e7-11ee-3e0a-7bed8d1d0dd4
-using Revise
-
 # ╔═╡ e558f3b5-a1aa-4ed8-bb9c-817a8f4e9820
 using PlutoBoard
-
-# ╔═╡ 96ff4362-fda0-4cae-9786-2dc29626479c
-using HTTP.WebSockets
 
 # ╔═╡ 64f17c2b-5f54-4df5-8d7d-d57f3b314b5b
 begin
@@ -36,7 +30,7 @@ PlutoBoard.load_scripts_and_links()
 PlutoBoard.load_js()
 
 # ╔═╡ a12112c1-58e7-473b-a8c2-d825d0f416d9
-function handle_julia_function_call(ws, parsed)
+function handle_julia_function_call(ws, parsed, package)
 	function_name = parsed[:function]
 	args = parsed[:args]
 
@@ -48,19 +42,12 @@ function handle_julia_function_call(ws, parsed)
 	kwargs = NamedTuple(PlutoBoard.parse_to_symbol(kwargs))
 
 	if parsed[:internal] == true
-		expr = Meta.parse("PlutoBoard.$function_name")
-	else
-		expr = Meta.parse("$user_package.$function_name")
-	end
-	func = eval(expr)
+        func = getfield(PlutoBoard, Symbol(function_name))
+    else
+        func = getfield(package, Symbol(function_name))
+    end
 
-	if !isa(func, Function) #TODO move above for it to work..
-		send(ws, "Function $function_name not found")
-	end
-
-	#get supported arguments of function 
-
-	local val;
+	local val
 	try
 		val = func(args...; kwargs..., ws = ws)
 	catch MethodError
@@ -71,8 +58,7 @@ function handle_julia_function_call(ws, parsed)
 		"type" => "return",
 		"return" => val,
 	)
-	send(ws, PlutoBoard.JSON.json(message))
-
+	PlutoBoard.send(ws, PlutoBoard.JSON.json(message))
 end
 
 # ╔═╡ 231a2a26-b3ec-4ad0-8335-db43a53f1a86
@@ -86,13 +72,14 @@ begin
 		@info e
 	end
 	
-	PlutoBoard.websocket = @async WebSockets.listen(PlutoBoard.config["websocket"]["url"], PlutoBoard.config["websocket"]["port"]) do ws
+	PlutoBoard.websocket = @async PlutoBoard.WebSockets.listen(PlutoBoard.config["websocket"]["url"], PlutoBoard.config["websocket"]["port"]) do ws
 		for msg in ws
 			parsed = PlutoBoard.parse_to_symbol(PlutoBoard.JSON.parse(msg))
 			type = parsed[:type]
 
 			if type == "julia_function_call"
-				handle_julia_function_call(ws, parsed)
+				@info parsed
+				handle_julia_function_call(ws, parsed, user_package)
 			end
 		end
 	end
@@ -105,11 +92,9 @@ x=1
 x
 
 # ╔═╡ Cell order:
-# ╠═caff9170-f1e7-11ee-3e0a-7bed8d1d0dd4
 # ╠═306bfe84-b28b-4f52-a427-ba6950ddead4
 # ╠═0e8625f9-e2cb-4660-b355-cc62d35b252d
 # ╠═e558f3b5-a1aa-4ed8-bb9c-817a8f4e9820
-# ╠═96ff4362-fda0-4cae-9786-2dc29626479c
 # ╠═64f17c2b-5f54-4df5-8d7d-d57f3b314b5b
 # ╠═c8f44fcc-b2b4-49e6-8c5c-93ee51e42d1a
 # ╠═7d9362b1-c508-4cad-add2-4f62a6ad8409
@@ -118,3 +103,4 @@ x
 # ╠═147ed5fe-0133-4eef-96f2-afafe9385f27
 # ╠═2eac3d05-ae01-40c8-abfa-d55349f043f3
 # ╠═2e287869-a591-45ba-ac12-28c24fd9059a
+
