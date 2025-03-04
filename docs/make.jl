@@ -6,6 +6,7 @@ using HTTP
 
 PAGES = [
     "Getting started" => "index.md",
+    "Using Vite" => "vite.md",
     "Plugins" => "plugins.md",
     "Interface" => "interface.md",
     "Internal" => "internal.md",
