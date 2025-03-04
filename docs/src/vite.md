@@ -15,7 +15,7 @@ Here is a quick overview of official Vite templates.
 | [solid](https://vite.new/solid)     | [solid-ts](https://vite.new/solid-ts)     |
 | [qwik](https://vite.new/qwik)       | [qwik-ts](https://vite.new/qwik-ts)       |
 
-## Set up Vite
+## Setting up Vite
 
 First, you need to create a vite app in your packages folder (or anywhere else):
 
@@ -24,8 +24,6 @@ npm create vite@latest vite-ts -- --template vanilla-ts
 ```
 
 We will use the vanilla typescript template, but you can use whatever you like.
-
-## Add a config file
 
 Since the fileserver PlutoBoard serves its files from runs on a different port than Pluto, we need to take this into account when building our app.
 We can define this in `vite.config.js` (in our vite project folder, `vite-ts/` in this example):
@@ -38,7 +36,7 @@ export default defineConfig({
 });
 ```
 
-If we build the project now, we still need to copy files in `vite-ts/dist` to `static` for PlutoBoard to load and serve them. We can do this by defining postbuild in `package.json`:
+If we build the project now, we still need to copy files in `vite-ts/dist` to `static` for PlutoBoard to load and serve them. We can do this by defining postbuild in `vite-ts/package.json`:
 
 ```json
 "scripts": {
@@ -49,6 +47,4 @@ If we build the project now, we still need to copy files in `vite-ts/dist` to `s
 
 This can be replaced by other paths depending where your vite project is.
 
-To build the project, we just need to run `npm run build`, which will build everything, set correct urls and move files into `static/`.
-
-For testing use `npm run dev`, but be aware that PlutoBoard interface functions won't be available. Still great for designing though!
+To build the project, we just need to run `npm run build`, which will build everything, set correct urls and move files into `static/`. For testing use `npm run dev`, but be aware that PlutoBoard interface functions won't be available. Still great for designing though!
