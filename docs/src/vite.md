@@ -48,3 +48,7 @@ If we build the project now, we still need to copy files in `vite-ts/dist` to `s
 This can be replaced by other paths depending where your vite project is.
 
 To build the project, we just need to run `npm run build`, which will build everything, set correct urls and move files into `static/`. For testing use `npm run dev`, but be aware that PlutoBoard interface functions won't be available. Still great for designing though!
+
+## Running PlutoBoard
+
+PlutoBoard handles everything, so just run it as usual! And don't restart it when you run `npm run build`, just refresh the website and it will update!
