@@ -26,7 +26,7 @@ end
 Copies a file from one location to another and deletes the original file. Sets the permissions of the copied file to 666.
 """
 function copy_with_delete(from::String, to::String)
-    cp(from, to, force=true)  
+    cp(from, to, force=true)
     chmod(to, 0o766)
     @info "Copied $from to $to"
 end
@@ -77,22 +77,23 @@ function setup(; example::String="default")
     open(project_file_path, "w") do f
         write(f,
             """
-            module $(project_name)
+module $(project_name)
 
-            using PlutoBoard
+    using PlutoBoard
 
-            include("Main.jl")
+    include("Main.jl")
 
-   			function get_cube(num; ws)
-   	for i in 1:50
-   		PlutoBoard.send_to_ws(ws, i/50)
-   		sleep(0.05)
-   	end
+    function get_cube(num; ws)
+        for i in 1:50
+            PlutoBoard.send_to_ws(ws, i/50)
+            sleep(0.05)
+        end
 
-   	return num^3
-   end
+       	return num^3
+    end
 
-            end""")
+end
+            """)
     end
 
     @info "Setup complete"
