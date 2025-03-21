@@ -4,6 +4,7 @@ authors = ["Niels <hermsen.niels@gmail.com>"]
 version = "0.1.2"
 
 [deps]
+FileWatching = "7b1f6079-737a-58dc-b8bc-7a2ca5c1b5ee"
 HTTP = "cd3eb016-35fb-5094-929b-558a96fad6f3"
 HypertextLiteral = "ac1192a8-f4b3-4bfe-ba22-af5b92cd3ab2"
 JSON = "682c06a0-de6a-54ab-a142-c8b1cf79cde6"
@@ -13,5 +14,6 @@ TOML = "fa267f1f-6049-4f14-aa54-33bafae1ed76"
 UUIDs = "cf7118a7-6976-5b1a-9a39-7adc72f591a4"
 
 [compat]
+FileWatching = "1.11.0"
 Pluto = "0.20.4"
 UUIDs = "1.11.0"

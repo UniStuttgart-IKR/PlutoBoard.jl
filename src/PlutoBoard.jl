@@ -7,6 +7,8 @@ using TOML
 using HTTP
 using HTTP.WebSockets
 using UUIDs
+using FileWatching
+using Base.Filesystem
 
 include("InterfaceFunctions.jl")
 include("LoadHTML.jl")
@@ -17,6 +19,7 @@ include("EditCells.jl")
 include("fileserver/FileServer.jl")
 include("websocket/WebSocket.jl")
 include("plugins/LoadPlugin.jl")
+include("HotReload.jl")
 
 function __init__()
   global SERVE_DIR = joinpath(pwd(), "static")
