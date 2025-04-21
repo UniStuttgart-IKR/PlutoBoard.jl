@@ -1,6 +1,6 @@
 # This file is machine-generated - editing it directly is not advised
 
-julia_version = "1.11.1"
+julia_version = "1.11.3"
 manifest_format = "2.0"
 project_hash = "6b146c0dda07ffb496ab4034260357670f1d7fae"
 
@@ -315,10 +315,10 @@ uuid = "c3e4b0f8-55cb-11ea-2926-15256bba5781"
 version = "0.20.4"
 
 [[deps.PlutoBoard]]
-deps = ["HTTP", "HypertextLiteral", "JSON", "Pkg", "Pluto", "TOML", "UUIDs"]
+deps = ["FileWatching", "HTTP", "HypertextLiteral", "JSON", "Pkg", "Pluto", "TOML", "UUIDs"]
 path = ".."
 uuid = "447e6095-edb7-4c27-ab1f-4a324c08f539"
-version = "0.1.1"
+version = "0.1.2"
 
 [[deps.PlutoDependencyExplorer]]
 deps = ["ExpressionExplorer", "InteractiveUtils", "Markdown"]
@@ -430,9 +430,9 @@ uuid = "3bb67fe8-82b1-5028-8e26-92a6c54297fa"
 version = "0.11.3"
 
 [[deps.Tricks]]
-git-tree-sha1 = "7822b97e99a1672bfb1b49b668a6d46d58d8cbcb"
+git-tree-sha1 = "6cae795a5a9313bbb4f60683f7263318fc7d1505"
 uuid = "410a4b4d-49e4-4fbc-ab6d-cb71b17b3775"
-version = "0.1.9"
+version = "0.1.10"
 
 [[deps.URIs]]
 git-tree-sha1 = "67db6cc7b3821e19ebe75791a9dd19c9b1188f2b"

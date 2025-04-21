@@ -26,14 +26,6 @@ export async function updateCellsByReactiveVariable(rv) {
     console.log(`Updated cells with reactive variable ${rv}:`, cellIDS);
 }
 
-export async function updateCellByVariable(varName) {
-    //fetch cellids needed to get updated
-    const cellIDS = await callJuliaFunction("find_cells_with_variable", { args: [varName], internal: true });
-    console.log(`Updating cells with variable ${varName}:`, cellIDS);
-    //update cells
-    await updateCellsByID(cellIDS);
-}
-
 
 
 

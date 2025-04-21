@@ -9,6 +9,7 @@ using HTTP.WebSockets
 using UUIDs
 using FileWatching
 using Base.Filesystem
+using MacroTools
 
 include("InterfaceFunctions.jl")
 include("LoadHTML.jl")
@@ -20,9 +21,11 @@ include("fileserver/FileServer.jl")
 include("websocket/WebSocket.jl")
 include("plugins/LoadPlugin.jl")
 include("HotReload.jl")
+include("Expressions.jl")
 
 function __init__()
-  global SERVE_DIR = joinpath(pwd(), "static")
+    global SERVE_DIR = joinpath(pwd(), "static")
+
 end
 
 

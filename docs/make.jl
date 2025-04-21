@@ -6,6 +6,8 @@ using HTTP
 
 PAGES = [
     "Getting started" => "index.md",
+    "Adding Pluto Cells" => "cells.md",
+    "Reactivity" => "reactivity.md",
     "Using Vite" => "vite.md",
     "Plugins" => "plugins.md",
     "Interface" => "interface.md",
