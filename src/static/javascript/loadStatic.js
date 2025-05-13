@@ -1,5 +1,12 @@
 import { callJuliaFunction } from './interface.js';
 
+// export async function loadUserMainScript() {
+//     const script = document.createElement('script')
+//     script.src = "http://localhost:8085/" + "javascript/main.js"
+//     script.type = "module"
+//     head.appendChild(script)
+// }
+
 export async function insertHTMLToBody() {
     const body = document.querySelector('body');
     const head = document.querySelector('head');

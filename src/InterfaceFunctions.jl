@@ -15,6 +15,7 @@ function run(debug::Bool=false, notebook_path::String="PlutoBoardNotebook.jl")
         mkpath(target_dir)
     end
     cp(joinpath(@__DIR__, "static/javascript/interface.js"), joinpath(target_dir, "interface.js"), force=true)
+    cp(joinpath(@__DIR__, "static/javascript/interface.d.ts"), joinpath(target_dir, "interface.d.ts"), force=true)
 
     if debug == false
         Pluto.run(notebook=notebook_path)

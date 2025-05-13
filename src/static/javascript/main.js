@@ -38,6 +38,8 @@ callJuliaFunction("monitor_folder", {
     internal: true
 });
 
+// import '/javascript/main.js';
+
 
 
 
