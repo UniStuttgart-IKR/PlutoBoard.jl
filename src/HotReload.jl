@@ -1,3 +1,5 @@
+export monitor_folder
+
 """
     monitor_folder(; ws)
 

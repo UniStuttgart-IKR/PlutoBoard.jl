@@ -1,3 +1,4 @@
+export find_cells_with_variable
 """
     find_cells_with_variable(
         var::String
