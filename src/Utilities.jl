@@ -26,20 +26,17 @@ end
 Copies a file from one location to another and deletes the original file. Sets the permissions of the copied file to 666.
 """
 function copy_with_delete(from::String, to::String)
-    cp(from, to, force=true)
+    cp(from, to, force = true)
     chmod(to, 0o766)
     @info "Copied $from to $to"
 end
 
 """
-	setup(
-		example::String="default"
-	)::nothing
+	setup()::nothing
 
 Sets up the PlutoBoard module by copying the necessary files to the current working directory.
-Example can either be `default` or `vue` or `vue_moving_cells`.
 """
-function setup(; example::String="default")
+function setup()
     @info "Setting up PlutoBoard"
 
     cwd = pwd()
@@ -48,7 +45,10 @@ function setup(; example::String="default")
         if file == "src"
             #copy contents of src folder into cwd
             for src_file in readdir("$(plutoboard_filepath)/setup/src")
-                copy_with_delete("$(plutoboard_filepath)/setup/src/$src_file", "$cwd/src/$src_file")
+                copy_with_delete(
+                    "$(plutoboard_filepath)/setup/src/$src_file",
+                    "$cwd/src/$src_file",
+                )
             end
             continue
         elseif file == "examples"
@@ -58,24 +58,13 @@ function setup(; example::String="default")
         copy_with_delete("$(plutoboard_filepath)/setup/$file", "$cwd/$file")
     end
 
-
-    if example == "vue"
-        copy_with_delete("$(plutoboard_filepath)/setup/static/examples/vue/index.html", "$cwd/static/index.html")
-        copy_with_delete("$(plutoboard_filepath)/setup/static/examples/vue/vue.css", "$cwd/static/vue.css")
-        copy_with_delete("$(plutoboard_filepath)/setup/static/examples/vue/vue.js", "$cwd/static/javascript/vue.js")
-    elseif example == "vue_moving_cells"
-        copy_with_delete("$(plutoboard_filepath)/setup/static/examples/vue_moving_cells/index.html", "$cwd/static/index.html")
-        copy_with_delete("$(plutoboard_filepath)/setup/static/examples/vue_moving_cells/vue.css", "$cwd/static/vue.css")
-        copy_with_delete("$(plutoboard_filepath)/setup/static/examples/vue_moving_cells/vue.js", "$cwd/static/javascript/vue.js")
-
-    end
-
     #open Project.toml and get project name
     project_name = get_package_name()
 
     project_file_path = joinpath(cwd, "src/$(project_name).jl")
     open(project_file_path, "w") do f
-        write(f,
+        write(
+            f,
             """
 module $(project_name)
 
@@ -93,7 +82,8 @@ module $(project_name)
     end
 
 end
-            """)
+            """,
+        )
     end
 
     @info "Setup complete"

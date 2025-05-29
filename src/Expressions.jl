@@ -1,3 +1,10 @@
+"""
+    find_cells_with_variable(
+        var::String
+    ) -> Set{String}
+
+    Finds all cells in the notebook that contain the given variable and returns their IDs.
+"""
 function find_cells_with_variable(var::String)
     notebook = read("PlutoBoardNotebook.jl", String)
 
@@ -10,7 +17,8 @@ function find_cells_with_variable(var::String)
     cells = Dict(zip(ids, cell_contents))
 
     #check for var
-    cells_containing_var = filter(((k, v),) -> MacroTools.inexpr(Meta.parse(v), Meta.parse(var)), cells)
+    cells_containing_var =
+        filter(((k, v),) -> MacroTools.inexpr(Meta.parse(v), Meta.parse(var)), cells)
 
     return keys(cells_containing_var)
 end

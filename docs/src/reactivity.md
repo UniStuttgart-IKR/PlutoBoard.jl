@@ -5,13 +5,13 @@ Since Pluto's reactivity system does not work for variables inside a package (e.
 ## Updating all cells containing matching variables
 
 ```javascript
-await updateCellsByReactiveVariable(reactiveVariable);
+await updateCellByVariable(variable);
 ```
 
-finds all cells containing `reactiveVariable` and reruns them.
+finds all cells containing `variable` and reruns them.
 
 !!! info
-Note that `variable` would also rerun a cell containing `variable_1`. If exact matching is needed, use `updateCellByReactiveVariableAttribute`.
+Note that `some_var` is not the same as `user_package.some_var`, so make sure to use `variable="user_package.some_var"` if you want to rerun cells that use `user_package.some_var`.
 
 ## Updating all cells with certain attribute
 
@@ -19,7 +19,7 @@ Note that `variable` would also rerun a cell containing `variable_1`. If exact m
 await updateCellByReactiveVariableAttribute(reactiveVariable);
 ```
 
-finds all `<div>` elements with the class `cell-div` attribute `rv=reactiveVariable` and reruns them.
+finds all `<div>` elements with the class `cell-div` and attribute `rv=reactiveVariable` and reruns them.
 
 `updateCellByReactiveVariableAttribute("some_number")` would rerun following `<div>`:
 
