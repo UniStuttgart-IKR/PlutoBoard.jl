@@ -1,18 +1,42 @@
-name: GitHub pages
+name: Documentation
 
 on:
   push:
     branches:
       - '**'
       - '!gh-pages'
+    tags: '*'
+  pull_request:
 
 jobs:
-  deploy:
+  build:
+    permissions:
+      actions: write
+      contents: write
+      pull-requests: read
+      statuses: write
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+      # Checkout full history (needed for gh-pages deployment)
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
+      # Julia setup
+      - uses: julia-actions/setup-julia@v2
+        with:
+          version: '1.11'
+      - uses: julia-actions/cache@v1
+
+      - name: Install Julia dependencies
+        run: julia --project=docs/ -e 'using Pkg; Pkg.develop(PackageSpec(path=pwd())); Pkg.instantiate()'
+
+      - name: Build Julia docs
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: julia --project=docs/ docs/make.jl
+
+      # JS docs build
       - name: Install Node.js
         uses: actions/setup-node@v4
         with:
@@ -23,16 +47,36 @@ jobs:
           npm install jsdoc
           npm install clean-jsdoc-theme
 
-      - name: Build
-        uses: andstor/jsdoc-action@v1
-        with:
-          source_dir: ./src
-          output_dir: ./out
-          config_file: jsdoc.json
-          front_page: README.md
+      - name: Generate JS docs
+        run: npx jsdoc --configure jsdocs.json
 
-      - name: Deploy
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
-          publish_dir: ./out
+      # Deploy JS docs to gh-pages (only on main repo)
+      - name: Deploy JS docs to gh-pages
+        if: github.repository == 'your-org/your-repo'  # Replace with your actual repo full name
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git fetch origin gh-pages
+
+          # Use worktree to avoid dirty working directory
+          git worktree add gh-pages-worktree gh-pages
+
+          # Copy JS docs into worktree
+          rm -rf gh-pages-worktree/docs/js
+          mkdir -p gh-pages-worktree/docs/js
+          cp -r path/to/generated/jsdocs/* gh-pages-worktree/docs/js/
+
+          cd gh-pages-worktree
+          git add docs/js
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "Update JS docs"
+            git push origin gh-pages
+          fi
+
+          # Clean up
+          cd ..
+          git worktree remove gh-pages-worktree --force
