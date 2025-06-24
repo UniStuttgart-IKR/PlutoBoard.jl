@@ -51,6 +51,6 @@ To build the project, we just need to run `npm run build`, which will build ever
 
 ## Running PlutoBoard
 
-PlutoBoard handles everything, so just run it as usual! And don't restart it when you run `npm run build`, just refresh the website and it will update!
+PlutoBoard handles everything, so just run it as usual! And don't restart it when you run `npm run build`, it reloads automatically when you change files in `static/`.
 
 Although it could be useful to run it with `hide_notebook=true` for the first time. If not, you need to change the style of `<div id="app">` to use the whole screen.

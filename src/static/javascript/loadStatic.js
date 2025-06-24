@@ -1,5 +1,12 @@
 import { callJuliaFunction } from './interface.js';
 
+// export async function loadUserMainScript() {
+//     const script = document.createElement('script')
+//     script.src = "http://localhost:8085/" + "javascript/main.js"
+//     script.type = "module"
+//     head.appendChild(script)
+// }
+
 export async function insertHTMLToBody() {
     const body = document.querySelector('body');
     const head = document.querySelector('head');
@@ -35,15 +42,14 @@ export async function insertHTMLToBody() {
 
     //get all of body from mainSite and add it to the current body
     body.insertAdjacentHTML('afterbegin', doc.querySelector('body').innerHTML);
-
-
-    //get settings html
-    const settingsSite = await ((await fetch("http://localhost:8085/internal/static/html/settings.html")).text());
-
-    body.insertAdjacentHTML('afterbegin', settingsSite);
-
-
 }
+
+export async function insertSettingsHTMLToBody() {
+    const body = document.querySelector('body');
+    const settingsSite = await ((await fetch("http://localhost:8085/internal/static/html/settings.html")).text());
+    body.insertAdjacentHTML('afterbegin', settingsSite);
+}
+
 
 export async function addCSSToBody() {
     const cssFiles = await callJuliaFunction('get_css_files', { internal: true });

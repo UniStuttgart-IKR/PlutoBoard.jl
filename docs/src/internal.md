@@ -5,6 +5,7 @@
 add_cell(;ws)
 remove_cell(uuid::String; ws)
 get_cells(;ws)
+find_cells_with_variable(var::String)
 ```
 
 ## JS, HTML and CSS injections
@@ -20,6 +21,7 @@ serve_file(req::HTTP.Request)
 start_server()
 run_fileserver()
 get_mime_type(file)
+monitor_folder(; ws)
 
 ```
 

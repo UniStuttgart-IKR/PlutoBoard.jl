@@ -7,6 +7,9 @@ using TOML
 using HTTP
 using HTTP.WebSockets
 using UUIDs
+using FileWatching
+using Base.Filesystem
+using MacroTools
 
 include("InterfaceFunctions.jl")
 include("LoadHTML.jl")
@@ -17,11 +20,13 @@ include("EditCells.jl")
 include("fileserver/FileServer.jl")
 include("websocket/WebSocket.jl")
 include("plugins/LoadPlugin.jl")
+include("HotReload.jl")
+include("Expressions.jl")
 
 function __init__()
-  global SERVE_DIR = joinpath(pwd(), "static")
+    # Needs to be in init, so it runs every time PlutoBoard is loaded rather than only when PlutoBoard is being precompiled.
+    global SERVE_DIR = joinpath(pwd(), "static")
 end
-
 
 plutoboard_filepath = dirname(dirname(pathof(PlutoBoard)))
 config = TOML.parsefile(plutoboard_filepath * "/config/config.toml")
