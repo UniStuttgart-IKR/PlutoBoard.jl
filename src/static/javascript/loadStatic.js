@@ -1,4 +1,4 @@
-import { callJuliaFunction } from './interface.js';
+import {callJuliaFunction} from './interface.js';
 
 // export async function loadUserMainScript() {
 //     const script = document.createElement('script')
@@ -7,6 +7,10 @@ import { callJuliaFunction } from './interface.js';
 //     head.appendChild(script)
 // }
 
+/**
+ * Inserts the HTML document created by the user into the body and head of the current document.
+ * @returns {Promise<void>}
+ */
 export async function insertHTMLToBody() {
     const body = document.querySelector('body');
     const head = document.querySelector('head');
@@ -44,21 +48,28 @@ export async function insertHTMLToBody() {
     body.insertAdjacentHTML('afterbegin', doc.querySelector('body').innerHTML);
 }
 
+/**
+ * Inserts the settings HTML document into the body of the current document.
+ * @returns {Promise<void>}
+ */
 export async function insertSettingsHTMLToBody() {
     const body = document.querySelector('body');
     const settingsSite = await ((await fetch("http://localhost:8085/internal/static/html/settings.html")).text());
     body.insertAdjacentHTML('afterbegin', settingsSite);
 }
 
-
+/**
+ * Adds CSS files to the head of the current document.
+ * @returns {Promise<void>}
+ */
 export async function addCSSToBody() {
-    const cssFiles = await callJuliaFunction('get_css_files', { internal: true });
+    const cssFiles = await callJuliaFunction('get_css_files', {internal: true});
     console.log(cssFiles);
     const head = document.querySelector('head');
-    cssFiles.forEach(async (cssFile) => {
+    for (const cssFile of cssFiles) {
         const link = document.createElement('link');
         link.rel = 'stylesheet';
         link.href = `http://localhost:8085/css/${cssFile}`;
         head.appendChild(link);
-    });
+    }
 }

@@ -1,15 +1,30 @@
+/**
+ * Updates cell in a Pluto notebook by its ID
+ * @param {string} cellID -
+ * @returns {Promise<void>}
+ */
 export async function updateCell(cellID) {
     //updates a cell by its ID
     const cell = document.getElementById(cellID);
     await cell._internal_pluto_actions.set_and_run_multiple([cellID]);
 }
 
+/**
+ * Updates multiple cells in a Pluto notebook by their IDs
+ * @param {string[]} cellIDs - 
+ * @returns {Promise<void>}
+ */
 export async function updateCellsByID(cellIDs) {
     //updates multiple cells by their IDs
     const cells = cellIDs.map(cellID => document.getElementById(cellID));
     await cells[0]._internal_pluto_actions.set_and_run_multiple(cellIDs);
 }
 
+/**
+ * Updates all cells containing a specific reactive variable in their `rv` attribute
+ * @param {string} rv - 
+ * @returns {Promise<void>}
+ */
 export async function updateCellByReactiveVariableAttribute(rv) {
     //updates all cells containing `rv` in their `rv` attribute
     const cells = [...document.querySelectorAll(`div[rv]`)].filter(el => new RegExp(`\\b${rv}\\b`).test(el.getAttribute('rv')));
@@ -18,6 +33,11 @@ export async function updateCellByReactiveVariableAttribute(rv) {
     }
 }
 
+/**
+ * Updates all cells containing a specific reactive variable in their innerHTML
+ * @param {string} rv - 
+ * @returns {Promise<void>}
+ */
 export async function updateCellsByReactiveVariable(rv) {
     //updates all cells containing `rv` in their innerHTML
     const cellIDS = [...document.querySelectorAll(`div[class="awesome-wrapping-plugin-the-line cm-line"]`)].filter(el => new RegExp(`${rv}`).test(el.innerHTML)).map(el => el.closest(`pluto-cell`)?.id);
@@ -26,6 +46,11 @@ export async function updateCellsByReactiveVariable(rv) {
     console.log(`Updated cells with reactive variable ${rv}:`, cellIDS);
 }
 
+/**
+ * Updates all cells that contain a specific variable. Must be the the actual variable. `variable` will not work if the cell contains `user_package.variable`.
+ * @param {string} varName - 
+ * @returns {Promise<void>}
+ */
 export async function updateCellByVariable(varName) {
     //fetch cellids needed to get updated
     const cellIDS = await callJuliaFunction("find_cells_with_variable", {args: [varName], internal: true});
@@ -34,7 +59,10 @@ export async function updateCellByVariable(varName) {
     await updateCellsByID(cellIDS);
 }
 
-
+/**
+ * Sets up a WebSocket connection to PlutoBoard.jl
+ * @returns {WebSocket}
+ */
 function setupWebsocket() {
     let socket;
     while (socket === undefined) {
@@ -57,6 +85,11 @@ function setupWebsocket() {
     return socket;
 }
 
+/**
+ * Waits for the WebSocket connection to be open
+ * @param {WebSocket} socket - 
+ * @returns {Promise<void>}
+ */
 function waitForOpenConnection(socket) {
     return new Promise((resolve, reject) => {
         if (socket.readyState === WebSocket.OPEN) {
@@ -73,6 +106,16 @@ function waitForOpenConnection(socket) {
     });
 }
 
+/**
+ * Calls a Julia function via WebSocket and returns a Promise that resolves with the return value of the function. Callbacks can be provided to handle responses.
+ * @param {string} func_name - 
+ * @param {Object} options - 
+ * @param {Array} [options.args=[]] - 
+ * @param {Object} [options.kwargs={}] - 
+ * @param {Function} [options.response_callback=() => {}] - 
+ * @param {boolean} [options.internal=false] - 
+ * @returns {Promise<any>}
+ */
 export async function callJuliaFunction(func_name, {
     args = [], kwargs = {}, response_callback = () => {
     }, internal = false
@@ -103,18 +146,39 @@ export async function callJuliaFunction(func_name, {
     });
 }
 
+/**
+ * Logs an informational message to the console with a specific prefix.
+ * @param {string} message - 
+ * @returns {void}
+ */
 export function info(message) {
     console.log(`[PlutoBoard.jl] ${message}`);
 }
 
+/**
+ * Logs a warning message to the console with a specific prefix.
+ * @param {string} message - 
+ * @returns {void}
+ */
 export function warn(message) {
     console.warn(`[PlutoBoard.jl] ${message}`);
 }
 
+/**
+ * Logs an error message to the console with a specific prefix.
+ * @param {string} message - 
+ * @returns {void}
+ */
 export function error(message) {
     console.error(`[PlutoBoard.jl] ${message}`);
 }
 
+/**
+ * Places an iframe in a specific destination div and hides every cell except the one with the given targetCellID.
+ * @param {string} targetCellID - 
+ * @param {HTMLElement} destinationDiv - 
+ * @returns {void}
+ */
 export function placeIframe(targetCellID, destinationDiv) {
     const iFrameID = `cell-iframe-${targetCellID}`;
 
@@ -172,7 +236,10 @@ export function placeIframe(targetCellID, destinationDiv) {
     }, 100);
 }
 
-
+/**
+ * Places all iFrames needed given the user's index.html file.
+ * @returns {void}
+ */
 export function placeAlliFrames() {
     //get all divs with class cell-div
     let cellDivs = document.querySelectorAll('.cell-div');

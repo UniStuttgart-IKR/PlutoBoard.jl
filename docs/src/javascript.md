@@ -1,0 +1,1 @@
+All JavaScript methods are documented [here](https://unistuttgart-ikr.github.io/PlutoBoard.jl/docs/js)

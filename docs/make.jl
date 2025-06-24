@@ -12,6 +12,7 @@ PAGES = [
     "Plugins" => "plugins.md",
     "Interface" => "interface.md",
     "Internal" => "internal.md",
+    "JavaScript API" => "javascript.md",
 ]
 
 makedocs(
