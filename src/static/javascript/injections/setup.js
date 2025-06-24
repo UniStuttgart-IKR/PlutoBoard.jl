@@ -44,10 +44,10 @@ const interval = setInterval(async () => {
             });
 
             //add main script 
-            const script = document.createElement('script')
-            script.src = url + "javascript/main.js"
-            script.type = "module"
-            head.appendChild(script)
+            // const script = document.createElement('script')
+            // script.src = url + "javascript/main.js"
+            // script.type = "module"
+            // head.appendChild(script)
 
             //add plugin scripts
             for (let i = 0; i < js_files_to_load.length; i++) {

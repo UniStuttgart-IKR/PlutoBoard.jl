@@ -1,0 +1,30 @@
+{
+  "source": {
+    // In include you have to add the folder(s) you want to include
+    // or individual file(s) you want to include.
+    // path to folder(s) or file(s) should be relative to jsdoc.json
+    // file
+    "include": ["src"]
+  },
+
+  "opts": {
+    "encoding": "utf8",
+    "//readme": "./README.md",
+    // Output folder.
+    "destination": "docs/js/",
+    "recurse": true,
+    "verbose": true,
+    // Which template to use.
+    "template": "./node_modules/clean-jsdoc-theme",
+    "theme_opts": {
+      // Here we have to add all the options specific to
+      // clean jsdoc theme.
+      // For all jsdoc options visit: https://github.com/ankitskvmdam/clean-jsdoc-theme#options
+      "default_theme": "dark"
+    }
+  },
+  "markdown": {
+    "hardwrap": true, // This is important, otherwise some features might not work.
+    "idInHeadings": true // This is important, otherwise some features might not work.
+  }
+}

@@ -4,6 +4,10 @@ import { sendToast } from "./toasts.js";
 
 // --------------------------------------------------- SETTINGS MODAL ---------------------------------------------------
 
+/**
+ * Adds event listeners to the open and close buttons of the settings modal.
+ * @returns {void}
+ */
 export function addModalButtonListener() {
     const openBtn = document.getElementById('open-settings-modal');
     const closeBtn = document.getElementById('close-settings-modal');
@@ -17,6 +21,10 @@ export function addModalButtonListener() {
     });
 }
 
+/**
+ * Removes the `hidden` class from the settings modal and adds the `flex` class to display it.
+ * @returns {void}
+ */
 export function openSettings() {
     const modal = document.getElementById('default-modal');
     const pageContent = document.getElementById('main-export');
@@ -26,6 +34,10 @@ export function openSettings() {
     pageContent.classList.add('blur-sm');
 }
 
+/**
+ * Adds the `hidden` class to the settings modal and removes the `flex` class to hide it.
+ * @returns {void}
+ */
 export function closeSettings() {
     const modal = document.getElementById('default-modal');
     const pageContent = document.getElementById('main-export');
@@ -35,6 +47,11 @@ export function closeSettings() {
     pageContent.classList.remove('blur-sm');
 }
 
+/**
+ * Finds a cell by its ID, highlights it, and displays a toast message.
+ * @param {string} cell_id - 
+ * @returns {void}
+ */
 export function findCell(cell_id) {
     //find cell with property cellid=cell_id
     const cell = document.querySelector(`div[cellid="${cell_id}"]`);
@@ -53,6 +70,10 @@ export function findCell(cell_id) {
 
 // --------------------------------------------------- CELL TABLE ---------------------------------------------------
 
+/**
+ * Fetches the list of cell IDs from Julia and updates the cell IDs table in the settings modal.
+ * @returns {void}
+ */
 export function updateCellIDsTable() {
     callJuliaFunction("get_cells", { internal: true }).then(
         r => {
@@ -102,6 +123,11 @@ export function updateCellIDsTable() {
     )
 }
 
+/**
+ * Calls a Julia function to remove a cell by its ID, updates the cell IDs table, and displays a toast message.
+ * @param {string} cell_id - 
+ * @returns {void}
+ */
 export function removeCell(cell_id) {
     callJuliaFunction("remove_cell", {
         args: [cell_id],
@@ -114,6 +140,10 @@ export function removeCell(cell_id) {
     );
 }
 
+/**
+ * Calls a Julia function to add a new cell, updates the cell IDs table, and displays a toast message.
+ * @returns {void}
+ */
 export function addCell() {
     callJuliaFunction("add_cell", { internal: true }).then(
         r => {

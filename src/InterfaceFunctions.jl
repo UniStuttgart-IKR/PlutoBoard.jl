@@ -5,13 +5,23 @@ export run, initialize, javascript
 
 Runs the Pluto notebook with the PlutoBoard notebook.
 If `debug` is true, the notebook will reload when the file changes.
+Additionally copies the interface.js file to the lib directory of the current directory.
 """
-function run(debug::Bool=false)
-  if debug == false
-    Pluto.run(notebook="PlutoBoardNotebook.jl")
-  else
-    Pluto.run(notebook="PlutoBoardNotebook.jl", auto_reload_from_file=true)#, capture_stdout=false)
-  end
+function run(debug::Bool=false, notebook_path::String="PlutoBoardNotebook.jl")
+
+    #copy static/javascript/interface.js into pwd/lib
+    target_dir = joinpath(pwd(), "lib")
+    if !isdir(target_dir)
+        mkpath(target_dir)
+    end
+    cp(joinpath(@__DIR__, "static/javascript/interface.js"), joinpath(target_dir, "interface.js"), force=true)
+    cp(joinpath(@__DIR__, "static/javascript/interface.d.ts"), joinpath(target_dir, "interface.d.ts"), force=true)
+
+    if debug == false
+        Pluto.run(notebook=notebook_path)
+    else
+        Pluto.run(notebook=notebook_path, auto_reload_from_file=true)#, capture_stdout=false)
+    end
 end
 
 """
@@ -27,12 +37,12 @@ Initializes the PlutoBoard module with parameters.
 `scripts` and `links` are urls to scripts and stylesheets.
 """
 function initialize(html_path::String; hide_notebook::Bool=true, scripts=[], stylesheets=[])
-  PlutoBoard.html_path = html_path
-  PlutoBoard.css_path = css_path
-  PlutoBoard.hide_notebook = hide_notebook
+    PlutoBoard.html_path = html_path
+    PlutoBoard.css_path = css_path
+    PlutoBoard.hide_notebook = hide_notebook
 
-  PlutoBoard.scripts_urls = scripts
-  PlutoBoard.stylesheet_urls = stylesheets
+    PlutoBoard.scripts_urls = scripts
+    PlutoBoard.stylesheet_urls = stylesheets
 end
 
 
@@ -43,6 +53,6 @@ end
 Returns a HypertextLiteral.HTML object with the given javascript code.
 """
 function javascript(code::String)
-  time_ns = string(Base.time_ns()) #is needed to force a refresh of the html export if the code stays the same
-  return @htl("""<html><script>eval($(code)); $(time_ns)</script></html>""")
+    time_ns = string(Base.time_ns()) #is needed to force a refresh of the html export if the code stays the same
+    return @htl("""<html><script>eval($(code)); $(time_ns)</script></html>""")
 end
