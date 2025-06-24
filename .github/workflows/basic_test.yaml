@@ -1,0 +1,34 @@
+name: basic_test.yaml
+on:
+  push:
+    branches:
+      - '**'
+  pull_request:
+    branches:
+      - '**'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Julia
+        uses: julia-actions/setup-julia@v1
+        with:
+          version: '1.11'
+
+      - name: Generate test package
+        run: julia -e "using Pkg; Pkg.generate(\"test\")"
+
+      - name: Develop PlutoBoard package
+        run: |
+          cd test
+          julia --project -e "using Pkg; Pkg.develop(path=\"../\")"
+
+      - name: Setup and run PlutoBoard
+        run: |
+          cd test
+          julia --project -e "using PlutoBoard; PlutoBoard.setup(); PlutoBoard.run()"
