@@ -3,8 +3,7 @@ name: Documentation
 on:
   push:
     branches:
-      - '**'
-      - '!gh-pages'
+      - main
     tags: '*'
   pull_request:
 
@@ -48,11 +47,10 @@ jobs:
           npm install clean-jsdoc-theme
 
       - name: Generate JS docs
-        run: npx jsdoc --configure jsdocs.json
+        run: npx jsdoc --configure jsdoc.json
 
       # Deploy JS docs to gh-pages (only on main repo)
       - name: Deploy JS docs to gh-pages
-        if: github.repository == 'your-org/your-repo'  # Replace with your actual repo full name
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
@@ -66,7 +64,7 @@ jobs:
           # Copy JS docs into worktree
           rm -rf gh-pages-worktree/docs/js
           mkdir -p gh-pages-worktree/docs/js
-          cp -r path/to/generated/jsdocs/* gh-pages-worktree/docs/js/
+          cp -r docs/js/* gh-pages-worktree/docs/js/
 
           cd gh-pages-worktree
           git add docs/js
