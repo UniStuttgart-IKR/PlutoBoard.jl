@@ -21,18 +21,18 @@ jobs:
         with:
           fetch-depth: 0  # needed to push later
 
-      - uses: julia-actions/setup-julia@v2
-        with:
-          version: '1.11'
-      - uses: julia-actions/cache@v1
-
-      - name: Install Julia dependencies
-        run: julia --project=docs/ -e 'using Pkg; Pkg.develop(PackageSpec(path=pwd())); Pkg.instantiate()'
-
-      - name: Build Julia docs
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: julia --project=docs/ docs/make.jl
+#      - uses: julia-actions/setup-julia@v2
+#        with:
+#          version: '1.11'
+#      - uses: julia-actions/cache@v1
+#
+#      - name: Install Julia dependencies
+#        run: julia --project=docs/ -e 'using Pkg; Pkg.develop(PackageSpec(path=pwd())); Pkg.instantiate()'
+#
+#      - name: Build Julia docs
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#        run: julia --project=docs/ docs/make.jl
 
       # JS docs
       - name: Install Node.js
