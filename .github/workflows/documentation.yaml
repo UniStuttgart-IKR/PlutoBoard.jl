@@ -3,7 +3,7 @@ name: Documentation
 on:
   push:
     branches:
-      - '*'
+      - '**'
       - '!docs'
     tags: '*'
   pull_request:
