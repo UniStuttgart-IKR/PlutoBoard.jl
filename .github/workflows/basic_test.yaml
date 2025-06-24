@@ -47,21 +47,20 @@ jobs:
             echo "PlutoBoard server is ready"
           
             echo "Testing server response..."
-            echo "Testing server response..."
             response=$(curl -s http://localhost:8085/internal/static/javascript/interface.js)
             interface="$(cat src/static/javascript/interface.js)"
             if [ "$response" == "$interface" ]; then
               echo "File contents match"
             else
               echo "File contents differ"
-            exit 1
-          fi
+              exit 1
+            fi
 
             echo "Testing WebSocket connection..."
             echo '{"type":"julia_function_call","function":"get_cube","args":[12],"kwargs":{},"internal":false}' | websocat ws://localhost:8080/ --exit-on-eof --print-ping-rtts
             echo "WebSocket test completed"
           else
-            echo "Timeout: PlutoBoard server failed to start within 60 seconds"
+            echo "Timeout: PlutoBoard server failed to start within 300 seconds"
             exit 1
           fi
 
