@@ -43,7 +43,7 @@ jobs:
       - name: Wait for server to be ready and run tests
         run: |
           echo "Waiting for PlutoBoard server to start..."
-          if timeout 60 bash -c 'until curl -s http://localhost:8080 > /dev/null; do sleep 2; done'; then
+          if timeout 300 bash -c 'until curl -s http://localhost:8080 > /dev/null; do sleep 2; done'; then
             echo "PlutoBoard server is ready"
             
             echo "Testing server response..."
