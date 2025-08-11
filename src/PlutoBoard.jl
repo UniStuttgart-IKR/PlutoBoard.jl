@@ -23,6 +23,7 @@ include("plugins/LoadPlugin.jl")
 include("HotReload.jl")
 include("Expressions.jl")
 
+
 function __init__()
     # Needs to be in init, so it runs every time PlutoBoard is loaded rather than only when PlutoBoard is being precompiled.
     global SERVE_DIR = joinpath(pwd(), "static")
