@@ -10,6 +10,10 @@ using UUIDs
 using FileWatching
 using Base.Filesystem
 using MacroTools
+using REPL.TerminalMenus
+using PlutoBoardExamples
+
+import Base.print
 
 include("InterfaceFunctions.jl")
 include("LoadHTML.jl")
@@ -25,16 +29,16 @@ include("Expressions.jl")
 
 
 function __init__()
-    # Needs to be in init, so it runs every time PlutoBoard is loaded rather than only when PlutoBoard is being precompiled.
-    global SERVE_DIR = joinpath(pwd(), "static")
+	# Needs to be in init, so it runs every time PlutoBoard is loaded rather than only when PlutoBoard is being precompiled.
+	global SERVE_DIR = joinpath(pwd(), "static")
 end
 
 plutoboard_filepath = dirname(dirname(pathof(PlutoBoard)))
 config = TOML.parsefile(plutoboard_filepath * "/config/config.toml")
 
 
-html_path::Union{String,Nothing} = nothing
-css_path::Union{String,Nothing} = nothing
+html_path::Union{String, Nothing} = nothing
+css_path::Union{String, Nothing} = nothing
 hide_notebook::Bool = true
 
 scripts_urls::Array{String} = []
