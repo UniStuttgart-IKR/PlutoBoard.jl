@@ -52,6 +52,7 @@ function setup()
 
 	examples_path = joinpath(dirname(dirname(Pkg.pathof(PlutoBoardExamples))), options[choice])
 
+
 	# copy everything into `package_path`
 	for file in readdir(examples_path)
 		if file == "Project.toml"
@@ -78,6 +79,9 @@ function setup()
 	rm(joinpath(package_path, "src", options[choice] * ".jl"))
 	write(joinpath(package_path, "src", package_name * ".jl"), fixed_content)
 
+	# copy config/user_config.toml to package_path/user_config.toml
+	cp(joinpath(PlutoBoard.plutoboard_filepath, "config", "user_config.toml"), joinpath(package_path, "user_config.toml"); force = true)
+
 	@info "Setup complete"
 end
 
@@ -91,4 +95,38 @@ function get_package_name()::String
 	project_toml_path = joinpath(pwd(), "Project.toml")
 	project_toml = TOML.parsefile(project_toml_path)
 	return project_toml["name"]
+end
+
+function get_local_user_config()::Dict{String, Any}
+	user_config_path = joinpath(pwd(), "user_config.toml")
+	if isfile(user_config_path)
+		return TOML.parsefile(user_config_path)
+	else
+		return Dict{String, Any}()
+	end
+end
+
+function update_local_user_config(new_config::Dict{String, Any})
+	user_config_path = joinpath(pwd(), "user_config.toml")
+	if isfile(user_config_path)
+		current_config = TOML.parsefile(user_config_path)
+		merged_config = merge(current_config, new_config)
+		open(user_config_path, "w") do io
+			TOML.print(io, merged_config)
+		end
+	else
+		open(user_config_path, "w") do io
+			TOML.print(io, new_config)
+		end
+	end
+end
+
+function is_port_free(port::Int)::Bool
+	try
+		server = listen(IPv4("127.0.0.1"), port)
+		close(server)
+		return true
+	catch e
+		return false
+	end
 end

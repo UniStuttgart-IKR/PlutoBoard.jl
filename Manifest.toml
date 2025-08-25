@@ -2,7 +2,7 @@
 
 julia_version = "1.11.3"
 manifest_format = "2.0"
-project_hash = "666332123980e008e0b167191f26e1877f125df6"
+project_hash = "1a9afa49a4ddd3a79802ba750708c9237e967304"
 
 [[deps.ArgTools]]
 uuid = "0dad84c5-d112-42e6-8d28-ef12dabb789f"
@@ -277,6 +277,13 @@ deps = ["Base64", "Configurations", "Dates", "Downloads", "ExpressionExplorer", 
 git-tree-sha1 = "b8d8418bb773f073ad350effe8f2079205753e05"
 uuid = "c3e4b0f8-55cb-11ea-2926-15256bba5781"
 version = "0.20.9"
+
+[[deps.PlutoBoardExamples]]
+git-tree-sha1 = "79eb319ab7d89ebcc324560efab15ccb1e856feb"
+repo-rev = "main"
+repo-url = "https://github.com/UniStuttgart-IKR/PlutoBoardExamples"
+uuid = "91d2b6b3-4ae6-4799-974e-80d2209419ca"
+version = "0.1.0"
 
 [[deps.PlutoDependencyExplorer]]
 deps = ["ExpressionExplorer", "InteractiveUtils", "Markdown"]

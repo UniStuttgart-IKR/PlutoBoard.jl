@@ -12,6 +12,7 @@ using Base.Filesystem
 using MacroTools
 using REPL.TerminalMenus
 using PlutoBoardExamples
+using Sockets
 
 import Base.print
 
