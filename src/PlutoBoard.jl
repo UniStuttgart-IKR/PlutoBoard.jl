@@ -32,10 +32,15 @@ include("Expressions.jl")
 function __init__()
 	# Needs to be in init, so it runs every time PlutoBoard is loaded rather than only when PlutoBoard is being precompiled.
 	global SERVE_DIR = joinpath(pwd(), "static")
+
+	if isfile(joinpath(pwd(), "user_config.toml")) == true
+		global config = TOML.parsefile(joinpath(pwd(), "user_config.toml"))
+	else
+		@info "No user_config.toml file found in current directory. Only setup() will be available."
+	end
 end
 
 plutoboard_filepath = dirname(dirname(pathof(PlutoBoard)))
-config = TOML.parsefile(plutoboard_filepath * "/config/config.toml")
 
 
 html_path::Union{String, Nothing} = nothing

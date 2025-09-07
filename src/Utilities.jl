@@ -119,6 +119,8 @@ function update_local_user_config(new_config::Dict{String, Any})
 			TOML.print(io, new_config)
 		end
 	end
+
+	PlutoBoard.config = TOML.parsefile(user_config_path)
 end
 
 function is_port_free(port::Int)::Bool

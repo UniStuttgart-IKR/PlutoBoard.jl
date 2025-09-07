@@ -17,6 +17,9 @@ export function placeIframe(targetCellID, destinationDiv) {
             let notebook = document.querySelector('pluto-notebook');
             let notebookID = notebook.id;
 
+            //get current url
+            let currentPort = window.location.port;
+
             let div = destinationDiv;
             //remove all iFrame children of div
             div.querySelectorAll('iframe').forEach(iframe => {
@@ -25,7 +28,7 @@ export function placeIframe(targetCellID, destinationDiv) {
 
             let iframe = document.createElement('iframe');
             iframe.id = iFrameID;
-            iframe.src = `http://localhost:1234/edit?id=${notebookID}`;
+            iframe.src = `http://localhost:${currentPort}/edit?id=${notebookID}`;
 
             if (window.location === window.parent.location) {
                 div.appendChild(iframe);
@@ -50,9 +53,10 @@ export function placeIframe(targetCellID, destinationDiv) {
 
                                 //get iFrame.css and add it to head in iFrame
                                 let css = document.createElement('link');
+                                const fileserverPort = document.querySelector('meta[name="fileserver_port"]').content;
                                 css.rel = 'stylesheet';
                                 css.type = 'text/css';
-                                css.href = 'http://localhost:8085/internal/static/css/iFrame.css';
+                                css.href = `http://localhost:${fileserverPort}/internal/static/css/iFrame.css`;
                                 iframeDoc.head.appendChild(css);
                             }
                         }, 100);

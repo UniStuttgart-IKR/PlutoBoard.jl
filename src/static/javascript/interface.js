@@ -53,7 +53,7 @@ export async function updateCellsByReactiveVariable(rv) {
  */
 export async function updateCellByVariable(varName) {
     //fetch cellids needed to get updated
-    const cellIDS = await callJuliaFunction("find_cells_with_variable", {args: [varName], internal: true});
+    const cellIDS = await callJuliaFunction("find_cells_with_variable", { args: [varName], internal: true });
     console.log(`Updating cells with variable ${varName}:`, cellIDS);
     //update cells
     await updateCellsByID(cellIDS);
@@ -64,11 +64,12 @@ export async function updateCellByVariable(varName) {
  * @returns {WebSocket}
  */
 function setupWebsocket() {
+    const websocketPort = document.querySelector('meta[name="websocket_port"]').content;
     let socket;
     while (socket === undefined) {
         info('Waiting for WebSocket to be defined');
         new Promise(resolve => setTimeout(resolve, 100));
-        socket = new WebSocket('ws://localhost:8080');
+        socket = new WebSocket(`ws://localhost:${websocketPort}`);
     }
 
     socket.addEventListener('open', function (event) {
@@ -190,6 +191,9 @@ export function placeIframe(targetCellID, destinationDiv) {
             let notebook = document.querySelector('pluto-notebook');
             let notebookID = notebook.id;
 
+            let currentPort = window.location.port;
+
+
             let div = destinationDiv;
             //remove all iFrame children of div
             div.querySelectorAll('iframe').forEach(iframe => {
@@ -198,7 +202,7 @@ export function placeIframe(targetCellID, destinationDiv) {
 
             let iframe = document.createElement('iframe');
             iframe.id = iFrameID;
-            iframe.src = `http://localhost:1234/edit?id=${notebookID}`;
+            iframe.src = `http://localhost:${currentPort}/edit?id=${notebookID}`;
 
             if (window.location === window.parent.location) {
                 div.appendChild(iframe);
@@ -211,6 +215,7 @@ export function placeIframe(targetCellID, destinationDiv) {
                         let interval2 = setInterval(function () {
                             if (document.querySelector(`#${iFrameID}`).contentDocument.getElementById(targetCellID)) {
                                 clearInterval(interval2);
+                                const fileserverPort = document.querySelector('meta[name="fileserver_port"]').content;
                                 info(`IFrame with cellid ${targetCellID} loaded`);
 
                                 let iframeDoc = document.querySelector(`#${iFrameID}`).contentDocument;
@@ -225,7 +230,7 @@ export function placeIframe(targetCellID, destinationDiv) {
                                 let css = document.createElement('link');
                                 css.rel = 'stylesheet';
                                 css.type = 'text/css';
-                                css.href = 'http://localhost:8085/internal/static/css/iFrame.css';
+                                css.href = `http://localhost:${fileserverPort}/internal/static/css/iFrame.css`;
                                 iframeDoc.head.appendChild(css);
                             }
                         }, 100);

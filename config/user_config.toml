@@ -7,6 +7,3 @@ url = "127.0.0.1"
 default_port = 8085
 port = 8085
 url = "127.0.0.1"
-
-[fileserver_api]
-url = "http://localhost:8085/"
