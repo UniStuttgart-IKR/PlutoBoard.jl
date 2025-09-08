@@ -347,10 +347,8 @@ uuid = "c3e4b0f8-55cb-11ea-2926-15256bba5781"
 version = "0.20.13"
 
 [[deps.PlutoBoard]]
-deps = ["FileWatching", "HTTP", "HypertextLiteral", "JSON", "MacroTools", "Pkg", "Pluto", "TOML", "UUIDs"]
-git-tree-sha1 = "fba2d497e2b81fbdfcaf9bde4348ece168a3f4aa"
-repo-rev = "main"
-repo-url = "https://github.com/UniStuttgart-IKR/PlutoBoard.jl"
+deps = ["FileWatching", "HTTP", "HypertextLiteral", "JSON", "MacroTools", "Pkg", "Pluto", "PlutoBoardExamples", "REPL", "Sockets", "TOML", "UUIDs"]
+path = ".."
 uuid = "447e6095-edb7-4c27-ab1f-4a324c08f539"
 version = "0.1.2"
 
