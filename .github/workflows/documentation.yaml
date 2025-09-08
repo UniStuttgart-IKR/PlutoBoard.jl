@@ -27,6 +27,9 @@ jobs:
           version: '1.11'
       - uses: julia-actions/cache@v1
 
+      - name: Install PlutoBoardExamples beforehand to avoid issues with non registered repo
+        run: julia -e 'using Pkg; Pkg.develop(PackageSpec(url="https://github.com/UniStuttgart-IKR/PlutoBoardExamples.jl"))'
+
       - name: Install Julia dependencies
         run: julia --project=docs/ -e 'using Pkg; Pkg.develop(PackageSpec(path=pwd())); Pkg.instantiate()'
 
