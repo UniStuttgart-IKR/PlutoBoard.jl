@@ -32,10 +32,11 @@ export async function updateCellsByReactiveVariable(rv) {
 
 function setupWebsocket() {
     let socket;
+    const websocketPort = document.querySelector('meta[name="websocket_port"]').content;
     while (socket === undefined) {
         info('Waiting for WebSocket to be defined');
         new Promise(resolve => setTimeout(resolve, 100));
-        socket = new WebSocket('ws://localhost:8080');
+        socket = new WebSocket(`ws://localhost:${websocketPort}`);
     }
 
     socket.addEventListener('open', function(event) {

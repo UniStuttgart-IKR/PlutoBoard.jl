@@ -1,7 +1,7 @@
 export run, initialize, javascript
 
 """
-    run(debug::Bool=false)
+	run(debug::Bool=false)
 
 Runs the Pluto notebook with the PlutoBoard notebook.
 If `debug` is true, the notebook will reload when the file changes.
@@ -17,6 +17,29 @@ function run(debug::Bool=false, notebook_path::String="PlutoBoardNotebook.jl")
     cp(joinpath(@__DIR__, "static/javascript/interface.js"), joinpath(target_dir, "interface.js"), force=true)
     cp(joinpath(@__DIR__, "static/javascript/interface.d.ts"), joinpath(target_dir, "interface.d.ts"), force=true)
 
+    user_config = PlutoBoard.get_local_user_config()
+    websocket_port = user_config["websocket"]["default_port"]
+    fileserver_port = user_config["fileserver"]["default_port"]
+
+    #check if websocket_port is free
+    while !is_port_free(websocket_port)
+        websocket_port += 1
+        @warn "Websocket port $(websocket_port-1) is already in use. Trying $websocket_port"
+    end
+
+    while !is_port_free(fileserver_port)
+        fileserver_port += 1
+        @warn "Fileserver port $(fileserver_port-1) is already in use. Trying $fileserver_port"
+    end
+
+    @info "Websocket port: $websocket_port"
+    @info "Fileserver port: $fileserver_port"
+
+    #write ports to user_config.toml
+    user_config["websocket"]["port"] = websocket_port
+    user_config["fileserver"]["port"] = fileserver_port
+    PlutoBoard.update_local_user_config(user_config)
+
     if debug == false
         Pluto.run(notebook=notebook_path)
     else
@@ -25,7 +48,7 @@ function run(debug::Bool=false, notebook_path::String="PlutoBoardNotebook.jl")
 end
 
 """
-	initiliaize(
+	initialize(
 		html_path::String,
 		;
 		hide_notebook::Bool = true,

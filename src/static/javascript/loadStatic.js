@@ -1,21 +1,25 @@
-import {callJuliaFunction} from './interface.js';
+/**
+ * @fileoverview Static content loading functions for PlutoBoard.jl
+ * @module LoadStatic
+ */
 
-// export async function loadUserMainScript() {
-//     const script = document.createElement('script')
-//     script.src = "http://localhost:8085/" + "javascript/main.js"
-//     script.type = "module"
-//     head.appendChild(script)
-// }
+import { callJuliaFunction } from './interface.js';
 
 /**
  * Inserts the HTML document created by the user into the body and head of the current document.
+ * @memberof module:LoadStatic
  * @returns {Promise<void>}
  */
 export async function insertHTMLToBody() {
     const body = document.querySelector('body');
     const head = document.querySelector('head');
 
-    const mainSite = await ((await fetch("http://localhost:8085/index.html")).text());
+    const fileserverPort = document.querySelector('meta[name="fileserver_port"]').content;
+
+    let mainSite = await ((await fetch(`http://localhost:${fileserverPort}/index.html`)).text());
+
+    // replace FILESERVER_PORT in `main_site` with $fileserverPort
+    mainSite = mainSite.replace(/FILESERVER_PORT/g, fileserverPort);
 
     //get scripts within mainSite and add them to head (Scripts are not executed when inside html added with insertAdjacentHTML)
     const parser = new DOMParser();
@@ -50,26 +54,30 @@ export async function insertHTMLToBody() {
 
 /**
  * Inserts the settings HTML document into the body of the current document.
+ * @memberof module:LoadStatic
  * @returns {Promise<void>}
  */
 export async function insertSettingsHTMLToBody() {
     const body = document.querySelector('body');
-    const settingsSite = await ((await fetch("http://localhost:8085/internal/static/html/settings.html")).text());
+    const fileserverPort = document.querySelector('meta[name="fileserver_port"]').content;
+    const settingsSite = await ((await fetch(`http://localhost:${fileserverPort}/internal/static/html/settings.html`)).text());
     body.insertAdjacentHTML('afterbegin', settingsSite);
 }
 
 /**
  * Adds CSS files to the head of the current document.
+ * @memberof module:LoadStatic
  * @returns {Promise<void>}
  */
 export async function addCSSToBody() {
-    const cssFiles = await callJuliaFunction('get_css_files', {internal: true});
+    const cssFiles = await callJuliaFunction('get_css_files', { internal: true });
     console.log(cssFiles);
     const head = document.querySelector('head');
     for (const cssFile of cssFiles) {
         const link = document.createElement('link');
+        const fileserverPort = document.querySelector('meta[name="fileserver_port"]').content;
         link.rel = 'stylesheet';
-        link.href = `http://localhost:8085/css/${cssFile}`;
+        link.href = `http://localhost:${fileserverPort}/css/${cssFile}`;
         head.appendChild(link);
     }
 }

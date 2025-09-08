@@ -4,14 +4,14 @@
     // or individual file(s) you want to include.
     // path to folder(s) or file(s) should be relative to jsdoc.json
     // file
-    "include": ["src"]
+    "include": ["../src"]
   },
 
   "opts": {
     "encoding": "utf8",
     "//readme": "./README.md",
     // Output folder.
-    "destination": "docs/js/",
+    "destination": "js/",
     "recurse": true,
     "verbose": true,
     // Which template to use.

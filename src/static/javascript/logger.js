@@ -1,6 +1,13 @@
+
+/**
+ * @fileoverview Logging utilities for PlutoBoard.jl
+ * @module Logger
+ */
+
 /**
  * Logs an informational message to the console with the PlutoBoard.jl prefix
- * @param {string} message - The message to be logged
+ * @memberof module:Logger
+ * @param {string} message The message to be logged
  * @returns {void}
  */
 export function info(message) {
@@ -9,7 +16,8 @@ export function info(message) {
 
 /**
  * Logs a warning message to the console with the PlutoBoard.jl prefix
- * @param {string} message - The warning message to be logged
+ * @memberof module:Logger
+ * @param {string} message The warning message to be logged
  * @returns {void}
  */
 export function warn(message) {
@@ -18,7 +26,8 @@ export function warn(message) {
 
 /**
  * Logs an error message to the console with the PlutoBoard.jl prefix
- * @param {string} message - The error message to be logged
+ * @memberof module:Logger
+ * @param {string} message The error message to be logged
  * @returns {void}
  */
 export function error(message) {

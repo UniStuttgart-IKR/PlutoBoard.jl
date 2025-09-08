@@ -1,2 +1,6 @@
 build/
 node_modules/
+.idea
+
+docs/package-lock.json
+docs/js
