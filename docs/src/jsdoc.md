@@ -13,7 +13,7 @@ The complete [JavaScript API documentation](https://unistuttgart-ikr.github.io/P
 }
 </style>
 
-<iframe src="../../js/index.html" class="jsdoc-frame" title="JavaScript API Documentation">
+<iframe src="../../docs/js/index.html" class="jsdoc-frame" title="JavaScript API Documentation">
     <p>Your browser does not support iframes. Please <a href="js/index.html">click here to view the JSDoc documentation</a>.</p>
 </iframe>
 ```
