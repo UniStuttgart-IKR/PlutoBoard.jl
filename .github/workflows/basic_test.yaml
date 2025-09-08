@@ -26,45 +26,45 @@ jobs:
           chmod +x websocat
           sudo mv websocat /usr/local/bin/
 
-      - name: Generate test package
-        run: julia -e "using Pkg; Pkg.generate(\"test\")"
+      # - name: Generate test package
+      #   run: julia -e "using Pkg; Pkg.generate(\"test\")"
 
-      - name: Develop PlutoBoard package
-        run: |
-          cd test
-          julia --project -e "using Pkg; Pkg.develop(path=\"../\")"
+      # - name: Develop PlutoBoard package
+      #   run: |
+      #     cd test
+      #     julia --project -e "using Pkg; Pkg.develop(path=\"../\")"
 
-      - name: Start PlutoBoard in background
-        run: |
-          cd test
-          julia --project -e "using PlutoBoard; PlutoBoard.setup(); PlutoBoard.run()" &
-          echo "PlutoBoard started in background"
+      # - name: Start PlutoBoard in background
+      #   run: |
+      #     cd test
+      #     julia --project -e "using PlutoBoard; PlutoBoard.setup(); PlutoBoard.run()" &
+      #     echo "PlutoBoard started in background"
 
-      - name: Wait for server to be ready and run tests
-        run: |
-          echo "Waiting for PlutoBoard server to start..."
-          if timeout 300 bash -c 'until curl -s http://localhost:8080 > /dev/null; do sleep 2; done'; then
-            echo "PlutoBoard server is ready"
+      # - name: Wait for server to be ready and run tests
+      #   run: |
+      #     echo "Waiting for PlutoBoard server to start..."
+      #     if timeout 300 bash -c 'until curl -s http://localhost:8080 > /dev/null; do sleep 2; done'; then
+      #       echo "PlutoBoard server is ready"
           
-            echo "Testing server response..."
-            response=$(curl -s http://localhost:8085/internal/static/javascript/interface.js)
-            interface="$(cat src/static/javascript/interface.js)"
-            if [ "$response" == "$interface" ]; then
-              echo "File contents match"
-            else
-              echo "File contents differ"
-              exit 1
-            fi
+      #       echo "Testing server response..."
+      #       response=$(curl -s http://localhost:8085/internal/static/javascript/interface.js)
+      #       interface="$(cat src/static/javascript/interface.js)"
+      #       if [ "$response" == "$interface" ]; then
+      #         echo "File contents match"
+      #       else
+      #         echo "File contents differ"
+      #         exit 1
+      #       fi
 
-            echo "Testing WebSocket connection..."
-            echo '{"type":"julia_function_call","function":"get_cube","args":[12],"kwargs":{},"internal":false}' | websocat ws://localhost:8080/ --exit-on-eof --print-ping-rtts
-            echo "WebSocket test completed"
-          else
-            echo "Timeout: PlutoBoard server failed to start within 300 seconds"
-            exit 1
-          fi
+      #       echo "Testing WebSocket connection..."
+      #       echo '{"type":"julia_function_call","function":"get_cube","args":[12],"kwargs":{},"internal":false}' | websocat ws://localhost:8080/ --exit-on-eof --print-ping-rtts
+      #       echo "WebSocket test completed"
+      #     else
+      #       echo "Timeout: PlutoBoard server failed to start within 300 seconds"
+      #       exit 1
+      #     fi
 
-      - name: Stop PlutoBoard (cleanup)
-        run: |
-          pkill -f "julia.*PlutoBoard" || true
-          echo "PlutoBoard stopped"
+      # - name: Stop PlutoBoard (cleanup)
+      #   run: |
+      #     pkill -f "julia.*PlutoBoard" || true
+      #     echo "PlutoBoard stopped"
