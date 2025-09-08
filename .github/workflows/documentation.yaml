@@ -27,6 +27,9 @@ jobs:
           version: '1.11'
       - uses: julia-actions/cache@v1
 
+      - name: Install PlutoBoardExamples beforehand to avoid issues with non registered repo
+        run: julia --project=docs/ -e 'using Pkg; Pkg.develop(PackageSpec(url="https://github.com/UniStuttgart-IKR/PlutoBoardExamples"))'
+
       - name: Install Julia dependencies
         run: julia --project=docs/ -e 'using Pkg; Pkg.develop(PackageSpec(path=pwd())); Pkg.instantiate()'
 
@@ -36,9 +39,6 @@ jobs:
         run: julia --project=docs/ docs/make.jl
 
       # JS docs build
-      #cd into docs directory
-      - name: Change to docs directory
-        run: cd docs
 
       - name: Install Node.js
         uses: actions/setup-node@v4
@@ -46,15 +46,14 @@ jobs:
           node-version: '20'
 
       - name: Install JS dependencies
+        working-directory: docs
         run: |
           npm i
 
       - name: Generate JS docs
+        working-directory: docs
         run: npx jsdoc --configure jsdoc.json
 
-      # go back to root directory
-      - name: Change back to root directory
-        run: cd ..
 
       # Deploy JS docs to gh-pages (only on main repo)
       - name: Deploy JS docs to gh-pages
