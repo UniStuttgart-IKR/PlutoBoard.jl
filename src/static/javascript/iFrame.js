@@ -1,7 +1,13 @@
+/**
+ * @fileoverview IFrame management functions for PlutoBoard.jl
+ * @module IFrame
+ */
+
 import { info } from "./logger.js";
 
 /**
  * Places an iframe into the specified destination div and hides all cells except the one with the given targetCellID. Also hides all Pluto elements.
+ * @memberof module:IFrame
  * @param {string} targetCellID - 
  * @param {HTMLElement} destinationDiv - 
  * @returns {void}
@@ -67,10 +73,7 @@ export function placeIframe(targetCellID, destinationDiv) {
     }, 100);
 }
 
-/**
- * Places all iFrames needed by the user in index.html.
- * @returns {void}
- */
+
 export function placeAlliFrames() {
     //get all divs with class cell-div
     let cellDivs = document.querySelectorAll('.cell-div');

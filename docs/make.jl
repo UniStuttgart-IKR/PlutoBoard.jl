@@ -12,12 +12,14 @@ PAGES = [
     "Plugins" => "plugins.md",
     "Interface" => "interface.md",
     "Internal" => "internal.md",
-    "JavaScript API" => "javascript.md",
+    # "JavaScript API" => "javascript.md",
+    "JavaScript API Reference" => "jsdoc.md",
 ]
 
 makedocs(
     sitename="PlutoBoard.jl",
     pages=PAGES,
+    remotes=nothing,  # Disable remote source links
 )
 
 github_repo = get(ENV, "GITHUB_REPOSITORY", "")

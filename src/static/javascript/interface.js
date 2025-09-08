@@ -1,5 +1,11 @@
 /**
+ * @fileoverview Interface functions for PlutoBoard.jl - handles communication with Julia and cell management
+ * @module Interface
+ */
+
+/**
  * Updates cell in a Pluto notebook by its ID
+ * @memberof module:Interface
  * @param {string} cellID -
  * @returns {Promise<void>}
  */
@@ -11,6 +17,7 @@ export async function updateCell(cellID) {
 
 /**
  * Updates multiple cells in a Pluto notebook by their IDs
+ * @memberof module:Interface
  * @param {string[]} cellIDs - 
  * @returns {Promise<void>}
  */
@@ -22,6 +29,7 @@ export async function updateCellsByID(cellIDs) {
 
 /**
  * Updates all cells containing a specific reactive variable in their `rv` attribute
+ * @memberof module:Interface
  * @param {string} rv - 
  * @returns {Promise<void>}
  */
@@ -35,6 +43,7 @@ export async function updateCellByReactiveVariableAttribute(rv) {
 
 /**
  * Updates all cells containing a specific reactive variable in their innerHTML
+ * @memberof module:Interface
  * @param {string} rv - 
  * @returns {Promise<void>}
  */
@@ -48,6 +57,7 @@ export async function updateCellsByReactiveVariable(rv) {
 
 /**
  * Updates all cells that contain a specific variable. Must be the the actual variable. `variable` will not work if the cell contains `user_package.variable`.
+ * @memberof module:Interface
  * @param {string} varName - 
  * @returns {Promise<void>}
  */
@@ -61,6 +71,7 @@ export async function updateCellByVariable(varName) {
 
 /**
  * Sets up a WebSocket connection to PlutoBoard.jl
+ * @memberof module:Interface
  * @returns {WebSocket}
  */
 function setupWebsocket() {
@@ -88,6 +99,7 @@ function setupWebsocket() {
 
 /**
  * Waits for the WebSocket connection to be open
+ * @memberof module:Interface
  * @param {WebSocket} socket - 
  * @returns {Promise<void>}
  */
@@ -109,6 +121,7 @@ function waitForOpenConnection(socket) {
 
 /**
  * Calls a Julia function via WebSocket and returns a Promise that resolves with the return value of the function. Callbacks can be provided to handle responses.
+ * @memberof module:Interface
  * @param {string} func_name - 
  * @param {Object} options - 
  * @param {Array} [options.args=[]] - 
@@ -149,6 +162,7 @@ export async function callJuliaFunction(func_name, {
 
 /**
  * Logs an informational message to the console with a specific prefix.
+ * @memberof module:Interface
  * @param {string} message - 
  * @returns {void}
  */
@@ -158,6 +172,7 @@ export function info(message) {
 
 /**
  * Logs a warning message to the console with a specific prefix.
+ * @memberof module:Interface
  * @param {string} message - 
  * @returns {void}
  */
@@ -167,6 +182,7 @@ export function warn(message) {
 
 /**
  * Logs an error message to the console with a specific prefix.
+ * @memberof module:Interface
  * @param {string} message - 
  * @returns {void}
  */
@@ -176,6 +192,7 @@ export function error(message) {
 
 /**
  * Places an iframe in a specific destination div and hides every cell except the one with the given targetCellID.
+ * @memberof module:Interface
  * @param {string} targetCellID - 
  * @param {HTMLElement} destinationDiv - 
  * @returns {void}
@@ -232,6 +249,10 @@ export function placeIframe(targetCellID, destinationDiv) {
                                 css.type = 'text/css';
                                 css.href = `http://localhost:${fileserverPort}/internal/static/css/iFrame.css`;
                                 iframeDoc.head.appendChild(css);
+
+                                //hide vertical cursor in pluto-notebook
+                                const plutoNotebook = iframeDoc.querySelector('pluto-notebook');
+                                plutoNotebook.style.setProperty('cursor', 'default');
                             }
                         }, 100);
                     }
@@ -243,6 +264,7 @@ export function placeIframe(targetCellID, destinationDiv) {
 
 /**
  * Places all iFrames needed given the user's index.html file.
+ * @memberof module:Interface
  * @returns {void}
  */
 export function placeAlliFrames() {

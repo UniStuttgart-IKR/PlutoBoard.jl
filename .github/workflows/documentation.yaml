@@ -36,6 +36,10 @@ jobs:
         run: julia --project=docs/ docs/make.jl
 
       # JS docs build
+      #cd into docs directory
+      - name: Change to docs directory
+        run: cd docs
+
       - name: Install Node.js
         uses: actions/setup-node@v4
         with:
@@ -43,11 +47,14 @@ jobs:
 
       - name: Install JS dependencies
         run: |
-          npm install jsdoc
-          npm install clean-jsdoc-theme
+          npm i
 
       - name: Generate JS docs
         run: npx jsdoc --configure jsdoc.json
+
+      # go back to root directory
+      - name: Change back to root directory
+        run: cd ..
 
       # Deploy JS docs to gh-pages (only on main repo)
       - name: Deploy JS docs to gh-pages

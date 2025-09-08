@@ -1,7 +1,13 @@
+/**
+ * @fileoverview Static content loading functions for PlutoBoard.jl
+ * @module LoadStatic
+ */
+
 import { callJuliaFunction } from './interface.js';
 
 /**
  * Inserts the HTML document created by the user into the body and head of the current document.
+ * @memberof module:LoadStatic
  * @returns {Promise<void>}
  */
 export async function insertHTMLToBody() {
@@ -48,6 +54,7 @@ export async function insertHTMLToBody() {
 
 /**
  * Inserts the settings HTML document into the body of the current document.
+ * @memberof module:LoadStatic
  * @returns {Promise<void>}
  */
 export async function insertSettingsHTMLToBody() {
@@ -59,6 +66,7 @@ export async function insertSettingsHTMLToBody() {
 
 /**
  * Adds CSS files to the head of the current document.
+ * @memberof module:LoadStatic
  * @returns {Promise<void>}
  */
 export async function addCSSToBody() {

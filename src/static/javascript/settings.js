@@ -1,3 +1,8 @@
+/**
+ * @fileoverview Settings management functions for PlutoBoard.jl
+ * @module Settings
+ */
+
 import { placeAlliFrames } from "./iFrame.js";
 import { callJuliaFunction } from "./interface.js";
 import { sendToast } from "./toasts.js";
@@ -6,6 +11,7 @@ import { sendToast } from "./toasts.js";
 
 /**
  * Adds event listeners to the open and close buttons of the settings modal.
+ * @memberof module:Settings
  * @returns {void}
  */
 export function addModalButtonListener() {
@@ -23,6 +29,7 @@ export function addModalButtonListener() {
 
 /**
  * Removes the `hidden` class from the settings modal and adds the `flex` class to display it.
+ * @memberof module:Settings
  * @returns {void}
  */
 export function openSettings() {
@@ -36,6 +43,7 @@ export function openSettings() {
 
 /**
  * Adds the `hidden` class to the settings modal and removes the `flex` class to hide it.
+ * @memberof module:Settings
  * @returns {void}
  */
 export function closeSettings() {
@@ -49,6 +57,7 @@ export function closeSettings() {
 
 /**
  * Finds a cell by its ID, highlights it, and displays a toast message.
+ * @memberof module:Settings
  * @param {string} cell_id - 
  * @returns {void}
  */
@@ -72,6 +81,7 @@ export function findCell(cell_id) {
 
 /**
  * Fetches the list of cell IDs from Julia and updates the cell IDs table in the settings modal.
+ * @memberof module:Settings
  * @returns {void}
  */
 export function updateCellIDsTable() {
@@ -125,6 +135,7 @@ export function updateCellIDsTable() {
 
 /**
  * Calls a Julia function to remove a cell by its ID, updates the cell IDs table, and displays a toast message.
+ * @memberof module:Settings
  * @param {string} cell_id - 
  * @returns {void}
  */
@@ -142,6 +153,7 @@ export function removeCell(cell_id) {
 
 /**
  * Calls a Julia function to add a new cell, updates the cell IDs table, and displays a toast message.
+ * @memberof module:Settings
  * @returns {void}
  */
 export function addCell() {

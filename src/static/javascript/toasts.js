@@ -1,3 +1,15 @@
+/**
+ * @fileoverview Toast notification functions for PlutoBoard.jl
+ * @module Toasts
+ */
+
+/**
+ * Sends a toast notification with the specified message and type
+ * @memberof module:Toasts
+ * @param {string} message - The message to display
+ * @param {string} type - The type of toast (success, error, warning, info)
+ * @returns {void}
+ */
 export function sendToast(message, type) {
     const toastContainer = document.getElementById('toast-container');
     let img = '';
