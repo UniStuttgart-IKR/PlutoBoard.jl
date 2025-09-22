@@ -11,7 +11,7 @@ await updateCellByVariable(variable);
 finds all cells containing `variable` and reruns them.
 
 !!! info
-Note that `some_var` is not the same as `user_package.some_var`, so make sure to use `variable="user_package.some_var"` if you want to rerun cells that use `user_package.some_var`.
+    Note that `some_var` is not the same as `user_package.some_var`, so make sure to use `variable="user_package.some_var"` if you want to rerun cells that use `user_package.some_var`.
 
 ## Updating all cells with certain attribute
 
@@ -33,4 +33,4 @@ But won't rerun not exact matches:
 <div class="cell-div" cellid="..." rv="some_number_2" />
 ```
 
-The `rv` attribute is **not limited** to one Reactive variable, it can also have multiple, like `rv="some_number some_number_1 some_number_2"` seperated with a space.
+The `rv` attribute is **not limited** to one Reactive variable, it can also have multiple, like `rv="some_number some_number_1 some_number_2"` seperated with a space, just like HTML class attributes.

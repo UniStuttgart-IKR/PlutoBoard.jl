@@ -20,7 +20,7 @@ if (notebookHidden === true) {
     css_locations.push("internal/static/css/internal.css")
 }
 
-const url = `http://localhost:${fileserver_port}/`
+const url = `http://127.0.0.1:${fileserver_port}/`
 
 //wait for fileserver to be ready
 const interval = setInterval(async () => {
