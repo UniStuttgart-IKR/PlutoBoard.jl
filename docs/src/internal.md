@@ -22,7 +22,6 @@ start_server()
 run_fileserver()
 get_mime_type(file)
 monitor_folder(; ws)
-
 ```
 
 ## Other stuff

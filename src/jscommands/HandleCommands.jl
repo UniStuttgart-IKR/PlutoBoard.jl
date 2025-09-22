@@ -17,7 +17,7 @@ end
 		message::String
 	)
 
-Send a message to a WebSocket as response. This triggers `callback` in [`callJuliaFunction`](@ref).
+Send a message to a WebSocket as response. This triggers `callback` in `callJuliaFunction`.
 """
 function send_to_ws(ws, message)
 	send(ws, JSON.json(Dict("type" => "response", "response" => message)))
