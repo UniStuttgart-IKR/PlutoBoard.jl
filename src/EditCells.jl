@@ -37,6 +37,7 @@ function add_cell(; ws)
 	open("PlutoBoardNotebook.jl", "w") do file
 		write(file, file_content)
 	end
+	chmod("PlutoBoardNotebook.jl", 0o766)
 end
 
 """
@@ -69,6 +70,7 @@ function remove_cell(uuid::String; ws)
 	open("PlutoBoardNotebook.jl", "w") do file
 		write(file, file_content)
 	end
+	chmod("PlutoBoardNotebook.jl", 0o766)
 end
 
 """

@@ -79,6 +79,7 @@ function setup()
         end
 
         cp(joinpath(examples_path, file), joinpath(package_path, file); force=true)
+        chmod(joinpath(package_path, file), 0o766)
     end
 
     # change options[choice] in `src/$options[choice].jl` to `package_name`
@@ -86,9 +87,11 @@ function setup()
     fixed_content = replace(content, "$(options[choice])" => "$(package_name)")
     rm(joinpath(package_path, "src", options[choice] * ".jl"))
     write(joinpath(package_path, "src", package_name * ".jl"), fixed_content)
+    chmod(joinpath(package_path, "src", package_name * ".jl"), 0o766)
 
     # copy config/user_config.toml to package_path/user_config.toml
     cp(joinpath(PlutoBoard.plutoboard_filepath, "config", "user_config.toml"), joinpath(package_path, "user_config.toml"); force=true)
+    chmod(joinpath(package_path, "user_config.toml"), 0o766)
 
     @info "Setup complete"
 end

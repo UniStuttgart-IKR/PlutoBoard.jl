@@ -15,7 +15,9 @@ function run(debug::Bool=false, notebook_path::String="PlutoBoardNotebook.jl")
         mkpath(target_dir)
     end
     cp(joinpath(@__DIR__, "static/javascript/interface.js"), joinpath(target_dir, "interface.js"), force=true)
+    chmod(joinpath(target_dir, "interface.js"), 0o766)
     cp(joinpath(@__DIR__, "static/javascript/interface.d.ts"), joinpath(target_dir, "interface.d.ts"), force=true)
+    chmod(joinpath(target_dir, "interface.d.ts"), 0o766)
 
     user_config = PlutoBoard.get_local_user_config()
     websocket_port = user_config["websocket"]["default_port"]
