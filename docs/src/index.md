@@ -6,7 +6,7 @@
 ## Setup
 Add PlutoBoard and set it up
 ```bash
-YOUR_PACKAGE_NAME$> julia --project -e 'using Pkg; Pkg.add(url="https://github.com/UniStuttgart-IKR/PlutoBoard.jl"); using PlutoBoard; PlutoBoard.setup()' 
+$> julia --project=@temp -e 'using Pkg; Pkg.add(url="https://github.com/UniStuttgart-IKR/PlutoBoardExamples"); Pkg.add(url="https://github.com/UniStuttgart-IKR/PlutoBoard.jl"); using PlutoBoard; PlutoBoard.setup()'
 ```
 
 The setup will ask for the desired package name and an example to load. After that, you can cd into the newly created package and run PlutoBoard:

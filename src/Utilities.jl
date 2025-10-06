@@ -64,6 +64,14 @@ function setup()
                     new_toml[k] = v
                 end
             end
+
+            # add [source] of PlutoBoardExamples
+            new_toml["sources"] = Dict(
+                "PlutoBoardExamples" => Dict(
+                    "url" => "https://github.com/UniStuttgart-IKR/PlutoBoardExamples"
+                )
+            )
+
             open(joinpath(package_path, file), "w") do io
                 TOML.print(io, new_toml)
             end
