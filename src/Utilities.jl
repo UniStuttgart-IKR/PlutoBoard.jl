@@ -60,17 +60,17 @@ function setup()
             example_toml = TOML.parsefile(joinpath(examples_path, file))
             new_toml = TOML.parsefile(joinpath(package_path, file))
             for (k, v) in example_toml
-                if k in ["deps", "compat"]
+                if k in ["deps", "compat", "sources"]
                     new_toml[k] = v
                 end
             end
 
-            # add [source] of PlutoBoardExamples
-            new_toml["sources"] = Dict(
-                "PlutoBoardExamples" => Dict(
-                    "url" => "https://github.com/UniStuttgart-IKR/PlutoBoardExamples"
-                )
-            )
+            # # add [source] of PlutoBoardExamples
+            # new_toml["sources"] = Dict(
+            #     "PlutoBoardExamples" => Dict(
+            #         "url" => "https://github.com/UniStuttgart-IKR/PlutoBoardExamples"
+            #     )
+            # )
 
             open(joinpath(package_path, file), "w") do io
                 TOML.print(io, new_toml)
